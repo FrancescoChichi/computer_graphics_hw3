@@ -1,0 +1,3 @@
+/home/francesco/Documents/computer_graphics_hw3/build/CMakeFiles/edit_cache.dir
+/home/francesco/Documents/computer_graphics_hw3/build/CMakeFiles/pathtrace.dir
+/home/francesco/Documents/computer_graphics_hw3/build/CMakeFiles/rebuild_cache.dir

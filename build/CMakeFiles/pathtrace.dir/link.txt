@@ -1,0 +1,1 @@
+/usr/bin/c++   -O3 -DNDEBUG   CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o  -o ../bin/pathtrace -lpthread 

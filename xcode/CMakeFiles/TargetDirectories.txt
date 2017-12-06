@@ -1,0 +1,3 @@
+/Users/s1r/Desktop/computer_graphics_hw3/xcode/CMakeFiles/pathtrace.dir
+/Users/s1r/Desktop/computer_graphics_hw3/xcode/CMakeFiles/ALL_BUILD.dir
+/Users/s1r/Desktop/computer_graphics_hw3/xcode/CMakeFiles/ZERO_CHECK.dir

@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/francesco/Documents/computer_graphics_hw3/src/pathtrace.cpp" "/home/francesco/Documents/computer_graphics_hw3/build/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o"
+  "/Users/s1r/Desktop/computer_graphics_hw3/src/pathtrace.cpp" "/Users/s1r/Desktop/computer_graphics_hw3/build/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH

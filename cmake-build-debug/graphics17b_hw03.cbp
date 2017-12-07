@@ -84,6 +84,9 @@
 		<Unit filename="/Users/s1r/Desktop/computer_graphics_hw3/src/pathtrace.cpp">
 			<Option target="pathtrace"/>
 		</Unit>
+		<Unit filename="/Users/s1r/Desktop/computer_graphics_hw3/src/printData.h">
+			<Option target="pathtrace"/>
+		</Unit>
 		<Unit filename="/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image.h">
 			<Option target="pathtrace"/>
 		</Unit>

@@ -2,6 +2,7 @@
 
 #define YGL_IMAGEIO_IMPLEMENTATION 1
 #include "yocto_gl.h"
+#include "printData.h"
 
 using namespace ygl;
 using rng_t = ygl::rng_pcg32;
@@ -10,10 +11,10 @@ constexpr const auto ray_eps = 1e-4f;
 
 struct point {
   const instance* ist = nullptr;
-  vec3f x = zero3f; //origin
-  vec3f n = zero3f; //z
+  vec3f x = zero3f; //position on shp
+  vec3f n = zero3f; //normal on shape
   vec3f le = zero3f;
-  vec3f o = zero3f; //direction
+  vec3f o = zero3f; //outgoing direction
   vec3f kd = zero3f;
   vec3f ks = zero3f;
   float rs = 0.5;
@@ -61,11 +62,11 @@ ray3f sample_camera(const camera* cam, int i, int j, int res, rng_t& rng) {
 point eval_point(const instance* ist, int eid, const vec4f& euv, const vec3f& o) {
 
   auto p = point();
-
+/*
   // instance
   p.ist = ist;
 
-  // direction
+  // outgoing direction
   p.o = o;
 
   // shortcuts
@@ -77,6 +78,11 @@ point eval_point(const instance* ist, int eid, const vec4f& euv, const vec3f& o)
   auto norm = eval_norm(ist->shp, eid, euv);
   auto texcoord = eval_texcoord(ist->shp, eid, euv);
   auto color = eval_color(ist->shp, eid, euv);
+
+
+  p.x = pos;
+  p.n = norm;
+
 
   // handle normal map
   if (mat->norm_txt) {
@@ -93,9 +99,6 @@ point eval_point(const instance* ist, int eid, const vec4f& euv, const vec3f& o)
   // correct for double sided
   if (mat->double_sided && dot(norm, o) < 0) norm = -norm;
 
-  // creating frame
-  p.x = make_frame3_fromz(transform_point(ist->frame, pos),
-                               transform_direction(ist->frame, norm)).o;
 
   // handle color
   auto kx_scale = vec4f{1, 1, 1, 1};
@@ -153,17 +156,20 @@ point eval_point(const instance* ist, int eid, const vec4f& euv, const vec3f& o)
 
 
   // done
-  return p;
+  return p;*/
 
 
-  /*p.ist=ist;
+  p.ist=ist;
   p.o = o;
+
+  p.x = eval_pos(ist->shp, eid, euv);;
+  p.n = eval_norm(ist->shp, eid, euv);;
   p.kd = ist->shp->mat->kd;
   p.ks = ist->shp->mat->ks;
   p.rs = ist->shp->mat->rs;
   p.le = ist->shp->mat->ke;
 
-  return p;*/
+  return p;
 }
 
 /// Evaluate the point proerties for an environment (only o and le).
@@ -172,7 +178,7 @@ point eval_point(const environment* env, const vec3f& o) {
 
   //p.le=env->ke;
   p.o= o;
-
+/*
   // maerial
   auto ke = env->ke;
   if (env->ke_txt) {
@@ -182,40 +188,14 @@ point eval_point(const environment* env, const vec3f& o) {
     auto texcoord = vec2f{phi, theta};
     ke *= eval_texture(env->ke_txt, texcoord).xyz();
   }
-
+*/
   // create emission lobe
-  if (ke != zero3f) { p.le =  ke; }
+  //if (ke != zero3f) { p.le =  ke; }
+  if (env->ke != zero3f) { p.le =  env->ke; }
 
   // done
   return p;
 
-
-  /***
-   * // set shape data
-    auto pt = point();
-
-    // env
-    pt.env = env;
-
-    // direction
-    pt.wo = wo;
-
-    // maerial
-    auto ke = env->ke;
-    if (env->ke_txt) {
-        auto w = transform_direction(inverse(env->frame), -wo);
-        auto theta = (acos(clamp(w.y, (float)-1, (float)1)) / pif);
-        auto phi = atan2(w.z, w.x) / (2 * pif);
-        auto texcoord = vec2f{phi, theta};
-        ke *= eval_texture(env->ke_txt, texcoord).xyz();
-    }
-
-    // create emission lobe
-    if (ke != zero3f) { pt.em = {emission_type::env, ke}; }
-
-    // done
-    return pt;
-   */
 }
 
 /// Intersection the scene and return a point. Support both shape and
@@ -239,8 +219,32 @@ point intersect(
 void init_lights(scene* scn) {
 
   scn->lights.clear();
-  update_lights(scn,false);
 
+  for (auto lgt : scn->lights) delete lgt;
+  scn->lights.clear();
+
+  for (auto ist : scn->instances) {
+    if (ist->shp->mat->ke == zero3f) continue;
+    auto lgt = new light();
+    lgt->ist = ist;
+    auto shp = ist->shp;
+    if (shp->elem_cdf.empty()) {
+      if (!shp->points.empty()) {
+        shp->elem_cdf = sample_points_cdf(shp->points.size());
+      }
+      else if (!shp->triangles.empty()) {
+        shp->elem_cdf = sample_triangles_cdf(shp->triangles, shp->pos);
+      }
+    }
+    scn->lights.push_back(lgt);
+  }
+
+  for (auto env : scn->environments) {
+    if (env->ke == zero3f) continue;
+    auto lgt = new light();
+    lgt->env = env;
+    scn->lights.push_back(lgt);
+  }
   std::cerr<<"lights: "<<scn->lights.size()<<std::endl;
 
 }
@@ -256,7 +260,7 @@ point sample_lights(const scene* scn, const point& pt, rng_t& rng) {
     return {};
   else{
 
-    scn->lights[0]->ist->shp->mat->ke;
+    //scn->lights[0]->ist->shp->mat->ke;
     return {};
   }
 }
@@ -268,19 +272,6 @@ float weight_lights(const scene* scn, const point& lpt, const point& pt) {
 }
 
 
-
-// Schlick approximation of Fresnel term
-inline vec3f eval_fresnel_schlick(const vec3f& ks, float cosw) {
-  return ks +
-         (vec3f{1, 1, 1} - ks) * pow(clamp(1.0f - cosw, 0.0f, 1.0f), 5.0f);
-}
-
-// Schlick approximation of Fresnel term weighted by roughness.
-// This is a hack, but works better than not doing it.
-inline vec3f eval_fresnel_schlick(const vec3f& ks, float cosw, float rs) {
-  auto fks = eval_fresnel_schlick(ks, cosw);
-  return lerp(ks, fks, rs);
-}
 
 // Evaluates the GGX distribution and geometric term
 inline float eval_ggx(float rs, float ndh, float ndi, float ndo) {
@@ -330,7 +321,7 @@ vec3f eval_triangle_brdfcos(const point& pt, const vec3f& i) {
       ndh = dot(h, n);
 
   brdfcos = (pt.kd/pif)+
-      ((pt.ks* eval_ggx(pt.rs, ndh, ndi, ndo))/(4*ndi*ndo));
+      ((pt.ks* eval_ggx(pt.rs, ndh, ndi, ndo))/(4*abs(ndi)*abs(ndo)));
 
   return brdfcos;
 }
@@ -390,9 +381,9 @@ vec3f eval_brdfcos(const point& pt, const vec3f& i) {
 vec3f sample_triangle_brdfcos(const point& pt, rng_t& rng) {
   //TODO sample_triangle_brdfcos
 
+
   auto& wn = pt.n;
   auto& wo = pt.o;
-  auto& fp = pt.ist->frame;
 
   // skip if no component
   if (!pt.hit()) return zero3f;
@@ -419,29 +410,61 @@ vec3f sample_triangle_brdfcos(const point& pt, rng_t& rng) {
         rphi = 2 * pif * rn.x;
     // set to wi
     auto wi_local = vec3f{rr * cosf(rphi), rr * sinf(rphi), rz};
-    return transform_direction(fp, wi_local);
+    return transform_direction(make_frame3_fromz(pt.x, pt.n), wi_local);
   }
     // sample according to specular GGX
   else if (rnl < kdw + ksw) {
     // sample wh with ggx distribution
     auto wh_local = sample_ggx(pt.rs, rn);
-    auto wh = transform_direction(fp, wh_local);
+    auto wh = transform_direction(make_frame3_fromz(pt.x, pt.n), wh_local);
     // compute wi
     return normalize(wh * 2.0f * dot(wo, wh) - wo);
   }
-    // transmission hack
+ /*   // transmission hack
   else if (rnl < kdw + ksw)
     // continue ray direction
-    return -wo;
+    return -wo;*/
 
-  return {255,255,255};
+  return zero3f;
 }
 
 /// Comute the weight for BSDF sampling, i.e. 1 / pdf.
 float weight_triangle_brdfcos(const point& pt, const vec3f& i) {
   //TODO weight_triangle_brdfcos
 
-  return {};
+  // grab variables
+  auto& wn = pt.n;
+  auto& wo = pt.o;
+
+  // skip if no component
+  if (!pt.hit()) return 0;
+
+  // probability of each lobe
+  auto kdw = max_element_val(pt.kd), ksw = max_element_val(pt.ks);
+  auto kaw = kdw + ksw;
+  kdw /= kaw;
+  ksw /= kaw;
+
+  // accumulate the probability over all lobes
+  auto pdf = 0.0f;
+
+
+  auto wh = normalize(i + wo);
+
+  // compute dot products
+  auto ndo = dot(wn, wo), ndi = dot(wn, i), ndh = dot(wn, wh);
+
+  // diffuse term (hemipherical cosine probability)
+  if (ndo > 0 && ndi > 0) { pdf += kdw * ndi / pif; }
+
+  // specular term (GGX)
+  if (ndo > 0 && ndi > 0 && ndh > 0) {
+    // probability proportional to d adjusted by wh projection
+    auto d = pdf_ggx(pt.rs, ndh);
+    auto hdo = dot(wo, wh);
+    pdf += ksw * d / (4 * hdo);
+  }
+  return 1 / pdf;
 }
 
 vec3f sample_spherical_dir(const point& pt, rng_t& rng) {
@@ -487,26 +510,19 @@ vec3f estimate_li_naive(
     const scene* scn, const vec3f& q, const vec3f& d, int bounces, rng_t& rng) {
 //          auto li = estimate_li(scn, ray.o, ray.d, bounces, rng);
 
-
   auto pt = intersect(scn, q, d);
   if(!pt.hit()) return pt.le;
   if(bounces <= 0) return pt.le;
+
   auto i = sample_brdfcos(pt, rng);
   auto li = estimate_li_naive(scn, pt.x,i,bounces-1,rng);
-  auto lr = li * eval_brdfcos(pt,i) / sample_hemisphere_cosine_pdf(i);
+
+  auto pdf = weight_brdfcos(pt,i);
+  auto eval = eval_brdfcos(pt,i);
+  auto lr = li * eval * pdf;
+
   return pt.le + lr;
 
-  /***
-   * vec3f estimate_li(scene* scn, vec3f q, vec3f i) {
-     auto pt = intersect(scn, {q, i});
-    if(!pt.f) return pt.le;
-    if(bounce >= max_bounce) return pt.le;
-    auto i = sample_brdfcos(pt);
-    auto li = estimate_li(scn, {pt.x,i});
-    auto lr = li * eval_brdfcos(pt,i) / pdf(i);
-    return le + lr;
-}
-   */
 }
 
 /// Produce formulation of pathtracing that matches exactly eh above.

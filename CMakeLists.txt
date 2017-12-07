@@ -27,7 +27,7 @@ add_executable(pathtrace
     src/stb_image_resize.h
     src/tinyexr.h
     src/yocto_gl.h
-    src/pathtrace.cpp)
+    src/pathtrace.cpp src/printData.h)
 
 if(UNIX AND NOT APPLE)
     find_package(Threads REQUIRED)

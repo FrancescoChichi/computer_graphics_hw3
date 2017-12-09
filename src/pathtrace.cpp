@@ -167,13 +167,12 @@ point sample_light(const light* lgt, const point& pt, float rne, const vec2f& rn
     } else if (!shp->points.empty()) {
       eid = sample_points(shp->elem_cdf, rne);
       euv = {1, 0, 0, 0};
-    } else {
-      assert(false);
     }
     auto lpt = eval_point(lgt->ist, eid, euv, zero3f);
     lpt.o = normalize(pt.x - lpt.x);
     return lpt;
-  } else if (lgt->env) {
+  }
+  else if (lgt->env) {
     auto z = -1 + 2 * rn.y;
     auto rr = sqrt(clamp(1 - z * z, (float)0, (float)1));
     auto phi = 2 * pif * rn.x;
@@ -192,16 +191,17 @@ point sample_light(const light* lgt, const point& pt, float rne, const vec2f& rn
 /// For the homework support only point and triangles
 /// If no lights are present, just return {}.
 /// To use with MIS, fold the cosine at the light and r^2 into this funciton.
-light* sample_lights(const scene* scn, const point& pt, rng_t& rng) {
+point sample_lights(const scene* scn, const point& pt, rng_t& rng) {
 
 
-  if(scn->lights.empty()) return {};
-  else
-    return scn->lights[next_rand1i(rng,scn->lights.size())];
-//  auto rne = next_rand1f(rng);
-//  vec2f rn = {next_rand1f(rng),next_rand1f(rng)};
-//
-//  return sample_light(lgt,pt,rne,rn);
+  if(scn->lights.empty())
+    return {};
+
+  auto lgt = scn->lights[next_rand1i(rng,scn->lights.size())];
+  auto rne = next_rand1f(rng);
+  vec2f rn = {next_rand1f(rng),next_rand1f(rng)};
+
+  return sample_light(lgt,pt,rne,rn);
 
 
 }
@@ -216,8 +216,16 @@ float weight_lights(const scene* scn, const point& lpt, const point& pt) {
   if(lpt.emission_only())//env
     return 4 * pif;
   else{
-    auto d = dist(lpt.x, pt.x);
-    return lpt.ist->shp->elem_cdf.back() / (d * d);
+//    if(!lpt.ist->shp->points.empty())
+//    {
+//      auto d = dist(lpt.x, pt.x);
+//      return lpt.ist->shp->elem_cdf.back() / (d * d);
+//    }
+//    else if(!lpt.ist->shp->triangles.empty()){
+      auto d = dist(lpt.x, pt.x);
+      return lpt.ist->shp->elem_cdf.back() *
+             abs(dot(lpt.n, lpt.o)) / (d * d);
+//    }
   }
 
 }
@@ -355,8 +363,6 @@ float weight_spherical_dir() { return 1 / (4 * pif); }
 
 /// Evaluate the BSDF*cosine as discussed in the slides
 vec3f sample_triangle_brdfcos(const point& pt, rng_t& rng) {
-  //TODO sample_triangle_brdfcos
-
 
   auto& wn = pt.n;
   auto& wo = pt.o;
@@ -403,12 +409,9 @@ vec3f sample_triangle_brdfcos(const point& pt, rng_t& rng) {
 
 /// Comute the weight for BSDF sampling, i.e. 1 / pdf.
 float weight_triangle_brdfcos(const point& pt, const vec3f& i) {
-  //TODO weight_triangle_brdfcos
 
   // skip if no component
   if (!pt.hit()) return 0;
-
-
 
   // probability of each lobe
   auto kdw = max_element_val(pt.kd), ksw = max_element_val(pt.ks);
@@ -421,17 +424,10 @@ float weight_triangle_brdfcos(const point& pt, const vec3f& i) {
   auto pdf = 0.0f;
 
   auto h = normalize(i + pt.o);
-
   // compute dot products
   auto ndo = dot(pt.n, pt.o),
       ndi = dot(pt.n, i),
       ndh = dot(pt.n, h);
-
-  ///p(i)=n.i/pi
-
-// compute wh
-
-  // compute dot products
 
   // diffuse term (hemipherical cosine probability)
   if (ndo > 0 && ndi > 0) { pdf += kdw * ndi / pif; }
@@ -497,7 +493,6 @@ vec3f estimate_li_naive(
 /// In this method, use hemispherical cosine sampling and only lambert BSDF.
 vec3f estimate_li_product(
     const scene* scn, const vec3f& q, const vec3f& d, int bounces, rng_t& rng) {
-  //TODO estimate_li_product
 
   auto pt = intersect(scn, q, d);
   auto li = pt.le;
@@ -518,7 +513,6 @@ vec3f estimate_li_product(
 /// Pathtracing with direct+indirect and russian roulette
 vec3f estimate_li_direct(
     const scene* scn, const vec3f& q, const vec3f& d, int bounces, rng_t& rng) {
-  //TODO estimate_li_direct
 
   auto pt = intersect(scn, q, d);
   auto rrprob = 1.0f/ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d))), 1.0f);
@@ -526,8 +520,7 @@ vec3f estimate_li_direct(
   vec3f w = {1,1,1};
   for(auto bounce : range(bounces)) {
     if(!pt.hit()) break;
-    auto lgt = sample_lights(scn, pt, rng);
-    auto lpt = sample_light(lgt, pt, next_rand1f(rng), {next_rand1f(rng),next_rand1f(rng)});
+    auto lpt = sample_lights(scn, pt, rng);
     if(!intersect(scn, pt.x, -lpt.o).hit())
       li += w*lpt.le * eval_brdfcos(pt,-lpt.o) * weight_lights(scn,lpt,pt);
 

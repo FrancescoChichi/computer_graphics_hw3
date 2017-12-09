@@ -12,60 +12,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24ef128b-3e9e-4408-98b1-0a04637756dc" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/1" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/count.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o-3501392d" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/pathtrace" afterPath="$PROJECT_DIR$/bin/pathtrace" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeDetermineCompilerABI_C.bin" afterPath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeDetermineCompilerABI_C.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeDetermineCompilerABI_CXX.bin" afterPath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeDetermineCompilerABI_CXX.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CompilerIdC/a.out" afterPath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CompilerIdC/a.out" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CompilerIdCXX/a.out" afterPath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CompilerIdCXX/a.out" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/feature_tests.bin" afterPath="$PROJECT_DIR$/build/CMakeFiles/feature_tests.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeDetermineCompilerABI_C.bin" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeDetermineCompilerABI_C.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeDetermineCompilerABI_CXX.bin" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeDetermineCompilerABI_CXX.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CompilerIdC/a.out" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CompilerIdC/a.out" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CompilerIdCXX/a.out" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CompilerIdCXX/a.out" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/cornell_box_direct.png" afterPath="$PROJECT_DIR$/out/cornell_box_direct.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/cornell_box_product.png" afterPath="$PROJECT_DIR$/out/cornell_box_product.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeCache.txt" afterPath="$PROJECT_DIR$/build/CMakeCache.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeCCompiler.cmake" afterPath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeCCompiler.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeCXXCompiler.cmake" afterPath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeCXXCompiler.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeSystem.cmake" afterPath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeSystem.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeDirectoryInformation.cmake" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeDirectoryInformation.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeOutput.log" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeOutput.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile.cmake" afterPath="$PROJECT_DIR$/build/CMakeFiles/Makefile.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" afterPath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/TargetDirectories.txt" afterPath="$PROJECT_DIR$/build/CMakeFiles/TargetDirectories.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/CXX.includecache" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/CXX.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/DependInfo.cmake" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/DependInfo.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/build.make" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/build.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/depend.internal" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/depend.internal" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/flags.make" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/flags.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/link.txt" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/link.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/Makefile" afterPath="$PROJECT_DIR$/build/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/cmake_install.cmake" afterPath="$PROJECT_DIR$/build/cmake_install.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeCCompiler.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeCCompiler.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeCXXCompiler.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeCXXCompiler.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeSystem.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeSystem.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/CXX.includecache" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/CXX.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/DependInfo.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/DependInfo.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/build.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/build.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/depend.internal" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/depend.internal" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/flags.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/flags.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/link.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/link.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/graphics17b_hw03.cbp" afterPath="$PROJECT_DIR$/cmake-build-debug/graphics17b_hw03.cbp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pathtrace.cpp" afterPath="$PROJECT_DIR$/src/pathtrace.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -81,15 +29,13 @@
       <file leaf-file-name="pathtrace.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pathtrace.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="519" column="2" lean-forward="false" selection-start-line="519" selection-start-column="2" selection-end-line="519" selection-end-column="2" />
+            <state relative-caret-position="345">
+              <caret line="534" column="30" lean-forward="false" selection-start-line="534" selection-start-column="30" selection-end-line="534" selection-end-column="30" />
               <folding>
                 <element signature="e#56#77#0" expanded="true" />
-                <element signature="e#636#1609#0" expanded="false" />
-                <element signature="e#8371#8600#0" expanded="false" />
-                <element signature="e#12492#13033#0" expanded="false" />
-                <element signature="e#13035#13867#0" expanded="false" />
-                <element signature="e#14385#14591#0" expanded="false" />
+                <element signature="e#8497#8726#0" expanded="false" />
+                <element signature="e#12618#13159#0" expanded="false" />
+                <element signature="e#14924#15130#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -98,8 +44,8 @@
       <file leaf-file-name="yocto_gl.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/yocto_gl.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="15084" column="49" lean-forward="false" selection-start-line="15084" selection-start-column="47" selection-end-line="15084" selection-end-column="49" />
+            <state relative-caret-position="91">
+              <caret line="15478" column="13" lean-forward="false" selection-start-line="15478" selection-start-column="13" selection-end-line="15478" selection-end-column="13" />
               <folding>
                 <element signature="e#26150#26186#0" expanded="true" />
                 <element signature="e#26812#26832#0" expanded="true" />
@@ -539,11 +485,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>eval_triangle_brdfcoseval_triangle_brdfcosodh</find>
-      <find>.kt</find>
-      <find>.kr</find>
-      <find>triangle_brdfcos</find>
-      <find>weight_triangle_brdfcos</find>
       <find>weight_brdfcos</find>
       <find>fresne</find>
       <find>fresnel</find>
@@ -566,9 +507,14 @@
       <find>rrprob</find>
       <find>eval_fresnel_schlick</find>
       <find>kt</find>
+      <find>direct</find>
+      <find>direct</find>
       <find>namesp</find>
-      <find>direct</find>
-      <find>direct</find>
+      <find>rrp</find>
+      <find>sample_li</find>
+      <find>sample_light</find>
+      <find>nex</find>
+      <find>sample_b</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -675,12 +621,12 @@
       <option name="presentableId" value="Default" />
       <updated>1512474492048</updated>
       <workItem from="1512474495448" duration="69863000" />
-      <workItem from="1512831573152" duration="4582000" />
+      <workItem from="1512831573152" duration="6266000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74445000" />
+    <option name="totallyTimeSpent" value="76129000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -700,7 +646,7 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3262136" sideWeight="0.4914803" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28997022" sideWeight="0.5106496" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28932038" sideWeight="0.48935038" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28932038" sideWeight="0.48935038" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24947916" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31922612" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -748,11 +694,11 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/pathtrace.cpp</url>
-          <line>433</line>
+          <line>435</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="46" />
+      <option name="time" value="47" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
@@ -767,11 +713,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#56#77#0" expanded="true" />
-            <element signature="e#636#1609#0" expanded="false" />
-            <element signature="e#8371#8600#0" expanded="false" />
-            <element signature="e#12492#13033#0" expanded="false" />
-            <element signature="e#13035#13867#0" expanded="false" />
-            <element signature="e#14385#14591#0" expanded="false" />
+            <element signature="e#8497#8726#0" expanded="false" />
+            <element signature="e#12618#13159#0" expanded="false" />
+            <element signature="e#14924#15130#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1235,10 +1179,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include/_types/_uint32_t.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="30" column="21" lean-forward="false" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/yocto_gl.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="15084" column="49" lean-forward="false" selection-start-line="15084" selection-start-column="47" selection-end-line="15084" selection-end-column="49" />
+        <state relative-caret-position="91">
+          <caret line="15478" column="13" lean-forward="false" selection-start-line="15478" selection-start-column="13" selection-end-line="15478" selection-end-column="13" />
           <folding>
             <element signature="e#26150#26186#0" expanded="true" />
             <element signature="e#26812#26832#0" expanded="true" />
@@ -1675,15 +1627,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pathtrace.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="519" column="2" lean-forward="false" selection-start-line="519" selection-start-column="2" selection-end-line="519" selection-end-column="2" />
+        <state relative-caret-position="345">
+          <caret line="534" column="30" lean-forward="false" selection-start-line="534" selection-start-column="30" selection-end-line="534" selection-end-column="30" />
           <folding>
             <element signature="e#56#77#0" expanded="true" />
-            <element signature="e#636#1609#0" expanded="false" />
-            <element signature="e#8371#8600#0" expanded="false" />
-            <element signature="e#12492#13033#0" expanded="false" />
-            <element signature="e#13035#13867#0" expanded="false" />
-            <element signature="e#14385#14591#0" expanded="false" />
+            <element signature="e#8497#8726#0" expanded="false" />
+            <element signature="e#12618#13159#0" expanded="false" />
+            <element signature="e#14924#15130#0" expanded="false" />
           </folding>
         </state>
       </provider>

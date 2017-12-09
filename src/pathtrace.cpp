@@ -155,26 +155,8 @@ void init_lights(scene* scn) {
 
 }
 
-/// Pick one light at random and sample it with area sampling.
-/// Returns the point on the light source evaluate through eval_point().
-/// For sampling shapes, use the `sample_XXX()` functions.
-/// For the homework support only point and triangles
-/// If no lights are present, just return {}.
-/// To use with MIS, fold the cosine at the light and r^2 into this funciton.
-point sample_lights(const scene* scn, const point& pt, rng_t& rng) {
-
-  /*if(scn->lights.empty())
-    return {};
-  else{
-
-    //scn->lights[0]->ist->shp->mat->ke;
-    return {};
-  }*/
-
-  auto lgt = scn->lights[0];
-  auto rne = next_rand1f(rng);
-  vec2f rn = {next_rand1f(rng),next_rand1f(rng)};
-
+// Picks a point on a light.
+point sample_light(const light* lgt, const point& pt, float rne, const vec2f& rn){
   if (lgt->ist) {
     auto shp = lgt->ist->shp;
     auto eid = 0;
@@ -202,6 +184,26 @@ point sample_lights(const scene* scn, const point& pt, rng_t& rng) {
     assert(false);
     return {};
   }
+}
+
+/// Pick one light at random and sample it with area sampling.
+/// Returns the point on the light source evaluate through eval_point().
+/// For sampling shapes, use the `sample_XXX()` functions.
+/// For the homework support only point and triangles
+/// If no lights are present, just return {}.
+/// To use with MIS, fold the cosine at the light and r^2 into this funciton.
+light* sample_lights(const scene* scn, const point& pt, rng_t& rng) {
+
+
+  if(scn->lights.empty()) return {};
+  else
+    return scn->lights[next_rand1i(rng,scn->lights.size())];
+//  auto rne = next_rand1f(rng);
+//  vec2f rn = {next_rand1f(rng),next_rand1f(rng)};
+//
+//  return sample_light(lgt,pt,rne,rn);
+
+
 }
 
 /// Compute the light sampling weight, which 1/pdf
@@ -517,15 +519,22 @@ vec3f estimate_li_product(
 vec3f estimate_li_direct(
     const scene* scn, const vec3f& q, const vec3f& d, int bounces, rng_t& rng) {
   //TODO estimate_li_direct
-  
+
   auto pt = intersect(scn, q, d);
+  auto rrprob = 1.0f/ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d))), 1.0f);
   auto li = pt.le;
   vec3f w = {1,1,1};
   for(auto bounce : range(bounces)) {
     if(!pt.hit()) break;
-    auto lpt = sample_lights(scn, pt, rng);
+    auto lgt = sample_lights(scn, pt, rng);
+    auto lpt = sample_light(lgt, pt, next_rand1f(rng), {next_rand1f(rng),next_rand1f(rng)});
     if(!intersect(scn, pt.x, -lpt.o).hit())
       li += w*lpt.le * eval_brdfcos(pt,-lpt.o) * weight_lights(scn,lpt,pt);
+
+    if(next_rand1f(rng)>rrprob) break; //russian roulette
+    auto bpt = intersect(scn, pt.x, sample_brdfcos(pt,rng));
+    w *= eval_brdfcos(pt,d) * (rrprob*weight_brdfcos(pt,d));
+    pt=bpt;
   }
   return li;}
 

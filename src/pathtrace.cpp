@@ -20,10 +20,6 @@ struct point {
   vec3f ks = zero3f;//specular
   float rs = 0.5;   //specular roughness
 
-  vec3f kr(float cosw) const {
-    return  ks + (vec3f{1, 1, 1} - ks) * pow(clamp(1.0f - cosw, 0.0f, 1.0f), 5.0f); }
-
-  vec3f kt(float cosw) const{ return vec3f{1, 1, 1}-kr(cosw);}
   bool hit() const { return (bool)ist; }
   bool emission_only() const {
     return kd == vec3f{0, 0, 0} && ks == vec3f{0, 0, 0};
@@ -289,8 +285,6 @@ vec3f eval_triangle_brdfcos(const point& pt, const vec3f& i) {///OK
     brdfcos += pt.ks * ndi * dg / (4 * ndi * ndo);
   }
 
-  // transmission hack
-  if (o == -i) brdfcos += pt.kt(odh);
 
   return brdfcos;
 }
@@ -369,12 +363,10 @@ vec3f sample_triangle_brdfcos(const point& pt, rng_t& rng) {
   if (!pt.hit()) return zero3f;
 
   // probability of each lobe
-  auto kdw = max_element_val(pt.kd), ksw = max_element_val(pt.ks),
-      ktw = max_element_val(pt.kt(dot(wn,-wo)));
-  auto kaw = kdw + ksw;// + ktw;
+  auto kdw = max_element_val(pt.kd), ksw = max_element_val(pt.ks);
+  auto kaw = kdw + ksw;
   kdw /= kaw;
   ksw /= kaw;
-  ktw /= kaw + ktw;
 
   auto rnl = next_rand1f(rng);
   vec2f rn = {next_rand1f(rng),next_rand1f(rng)};
@@ -402,11 +394,7 @@ vec3f sample_triangle_brdfcos(const point& pt, rng_t& rng) {
     // compute wi
     return normalize(wh * 2.0f * dot(wo, wh) - wo);
   }
-    // transmission hack
-  else if (rnl < kdw + ksw + ktw) {
-    // continue ray direction
-    //return -wo;
-  }
+
 
   return zero3f;
 }
@@ -429,7 +417,6 @@ float weight_triangle_brdfcos(const point& pt, const vec3f& i) {
 
   // accumulate the probability over all lobes
   auto pdf = 0.0f;
-
 
   auto h = normalize(i + pt.o);
 
@@ -454,9 +441,6 @@ float weight_triangle_brdfcos(const point& pt, const vec3f& i) {
     auto hdo = dot(pt.o, h);
     pdf += ksw * d / (4 * hdo);
   }
-
-  // transmission hack
-  //if (i == -pt.o) pdf += ktw;
 
   return 1 / pdf;
 }
@@ -521,8 +505,7 @@ vec3f estimate_li_product(
     if(!pt.hit()) break;
     auto i = sample_brdfcos(pt, rng);
     auto bpt = intersect(scn, pt.x, i);
-    auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.le), 0.95f);
-    //rrprob = 1/rrprob;
+    auto rrprob = 1.0f/ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d))), 1.0f);
     w *= eval_brdfcos(pt,i) * (rrprob*weight_brdfcos(pt,i)); // update w  //pr(pt.f)*p(i)
     li += w * bpt.le;          // accumulate li
     pt = bpt;                  // “recurse”
@@ -534,8 +517,7 @@ vec3f estimate_li_product(
 vec3f estimate_li_direct(
     const scene* scn, const vec3f& q, const vec3f& d, int bounces, rng_t& rng) {
   //TODO estimate_li_direct
-
-
+  
   auto pt = intersect(scn, q, d);
   auto li = pt.le;
   vec3f w = {1,1,1};

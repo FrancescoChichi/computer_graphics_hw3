@@ -173,11 +173,13 @@ point sample_light(const light* lgt, const point& pt, float rne, const vec2f& rn
     return lpt;
   }
   else if (lgt->env) {
+
+//    auto a = lgt->env->ke*(lgt->env->ke_txt.txt->hdr.at(atan2(lgt->env->frame.pos().x,lgt->env->frame.pos().x)*(1/(2*pif)),acos(lgt->env->frame.pos().y)/pif)).xyz();
     auto z = -1 + 2 * rn.y;
     auto rr = sqrt(clamp(1 - z * z, (float)0, (float)1));
     auto phi = 2 * pif * rn.x;
     auto wo = vec3f{cos(phi) * rr, z, sin(phi) * rr};
-    auto lpt = eval_point(lgt->env, wo);
+    auto lpt = eval_point(lgt->env, wo);//wo->a
     return lpt;
   } else {
     assert(false);
@@ -208,29 +210,28 @@ point sample_lights(const scene* scn, const point& pt, rng_t& rng) {
 
 /// Compute the light sampling weight, which 1/pdf
 float weight_lights(const scene* scn, const point& lpt, const point& pt) {
-  //TODO weight_lights
-
 
   if (!lpt.hit()) return 0;
   // support only one lobe for now
   if(lpt.emission_only())//env
     return 4 * pif;
-  else{
-//    if(!lpt.ist->shp->points.empty())
-//    {
-//      auto d = dist(lpt.x, pt.x);
-//      return lpt.ist->shp->elem_cdf.back() / (d * d);
-//    }
-//    else if(!lpt.ist->shp->triangles.empty()){
-      auto d = dist(lpt.x, pt.x);
-      return lpt.ist->shp->elem_cdf.back() *
-             abs(dot(lpt.n, lpt.o)) / (d * d);
-//    }
+
+  if(!lpt.ist->shp->points.empty()){
+    auto d = dist(lpt.x, pt.x);
+    return lpt.ist->shp->elem_cdf.back() / (d * d);
   }
 
+  auto d = dist(lpt.x, pt.x);
+
+  auto a = lpt.ist->shp->elem_cdf.back();
+  auto b =  abs(dot(lpt.n, lpt.o));
+
+
+  return lpt.ist->shp->elem_cdf.back() *
+         abs(dot(lpt.n, lpt.o)) / (d * d);
+
+
 }
-
-
 
 // Evaluates the GGX distribution and geometric term
 inline float eval_ggx(float rs, float ndh, float ndi, float ndo) {
@@ -281,7 +282,6 @@ vec3f eval_triangle_brdfcos(const point& pt, const vec3f& i) {///OK
   // compute dot products
   auto ndo = dot(n, o), ndi = dot(n, i),
       ndh = clamp(dot(h, n), (float)-1, (float)1);
-  auto odh = clamp(dot(o, h), 0.0f, 1.0f);
 
   // diffuse term
   if (ndi > 0 && ndo > 0) { brdfcos += pt.kd * ndi / pif; }
@@ -497,12 +497,12 @@ vec3f estimate_li_product(
   auto pt = intersect(scn, q, d);
   auto li = pt.le;
   vec3f w = {1,1,1};
+  auto rrprob = 1.0f/ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d))), 1.0f);
 
   for(auto bounce : range(bounces)) {
     if(!pt.hit()) break;
     auto i = sample_brdfcos(pt, rng);
     auto bpt = intersect(scn, pt.x, i);
-    auto rrprob = 1.0f/ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d))), 1.0f);
     w *= eval_brdfcos(pt,i) * (rrprob*weight_brdfcos(pt,i)); // update w  //pr(pt.f)*p(i)
     li += w * bpt.le;          // accumulate li
     pt = bpt;                  // “recurse”
@@ -520,13 +520,23 @@ vec3f estimate_li_direct(
   vec3f w = {1,1,1};
   for(auto bounce : range(bounces)) {
     if(!pt.hit()) break;
+
     auto lpt = sample_lights(scn, pt, rng);
-    if(!intersect(scn, pt.x, -lpt.o).hit())
-      li += w*lpt.le * eval_brdfcos(pt,-lpt.o) * weight_lights(scn,lpt,pt);
+    if(intersect(scn, pt.x, -lpt.o).hit()){
+      auto a = weight_lights(scn,lpt,pt);
+      auto b =eval_brdfcos(pt,-lpt.o);
+      auto inc = w*lpt.le * b * a;
+      li += inc;
+
+    }
 
     if(next_rand1f(rng)>rrprob) break; //russian roulette
     auto bpt = intersect(scn, pt.x, sample_brdfcos(pt,rng));
-    w *= eval_brdfcos(pt,d) * (rrprob*weight_brdfcos(pt,d));
+    auto is = pt.emission_only();
+    auto ev = eval_brdfcos(pt,d);
+    auto prob = weight_brdfcos(pt,d);
+    w*=ev * (rrprob*prob);
+//    w *= eval_brdfcos(pt,d) * (rrprob*weight_brdfcos(pt,d));
     pt=bpt;
   }
   return li;}

@@ -12,10 +12,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24ef128b-3e9e-4408-98b1-0a04637756dc" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/pathtrace" afterPath="$PROJECT_DIR$/bin/pathtrace" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/cornell_box_direct.png" afterPath="$PROJECT_DIR$/out/cornell_box_direct.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pathtrace.cpp" afterPath="$PROJECT_DIR$/src/pathtrace.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -31,8 +29,8 @@
       <file leaf-file-name="pathtrace.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pathtrace.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="535" column="14" lean-forward="false" selection-start-line="535" selection-start-column="14" selection-end-line="535" selection-end-column="14" />
+            <state relative-caret-position="336">
+              <caret line="537" column="0" lean-forward="false" selection-start-line="537" selection-start-column="0" selection-end-line="537" selection-end-column="0" />
               <folding>
                 <element signature="e#56#77#0" expanded="true" />
                 <element signature="e#8790#9019#0" expanded="false" />
@@ -40,8 +38,7 @@
                 <element signature="e#9821#11069#0" expanded="false" />
                 <element signature="e#11960#12385#0" expanded="false" />
                 <element signature="e#12781#13322#0" expanded="false" />
-                <element signature="e#13324#14125#0" expanded="false" />
-                <element signature="e#15135#15341#0" expanded="false" />
+                <element signature="e#15139#15345#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -50,8 +47,8 @@
       <file leaf-file-name="yocto_gl.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/yocto_gl.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="1418" column="0" lean-forward="false" selection-start-line="1418" selection-start-column="0" selection-end-line="1418" selection-end-column="0" />
+            <state relative-caret-position="266">
+              <caret line="14906" column="13" lean-forward="false" selection-start-line="14906" selection-start-column="13" selection-end-line="14906" selection-end-column="13" />
               <folding>
                 <element signature="e#26150#26186#0" expanded="true" />
                 <element signature="e#26812#26832#0" expanded="true" />
@@ -491,8 +488,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>max_element_val</find>
-      <find>_triangle_brdfcos</find>
       <find>rr</find>
       <find>.kt(</find>
       <find>kr</find>
@@ -519,8 +514,10 @@
       <find>_brdfcos</find>
       <find>_ligh</find>
       <find>_li_</find>
-      <find>weight</find>
       <find>weight_light</find>
+      <find>weight</find>
+      <find>roule</find>
+      <find>sample_brdfcos</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -544,9 +541,8 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="-1920" />
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -628,12 +624,12 @@
       <updated>1512474492048</updated>
       <workItem from="1512474495448" duration="69863000" />
       <workItem from="1512831573152" duration="8590000" />
-      <workItem from="1512909235217" duration="12962000" />
+      <workItem from="1512909235217" duration="15658000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91415000" />
+    <option name="totallyTimeSpent" value="94111000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -645,19 +641,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1920" y="0" width="1920" height="1080" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32524273" sideWeight="0.4914803" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32470587" sideWeight="0.4914803" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28997022" sideWeight="0.5106496" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28932038" sideWeight="0.48935038" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24947916" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35058823" sideWeight="0.48935038" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24930556" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31922612" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2699029" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26941177" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -670,22 +667,22 @@
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32524273" sideWeight="0.4914803" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32470587" sideWeight="0.4914803" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28997022" sideWeight="0.5106496" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28932038" sideWeight="0.48935038" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35058823" sideWeight="0.48935038" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31922612" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947916" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24930556" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2699029" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26941177" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -705,23 +702,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/pathtrace.cpp</url>
-          <line>528</line>
-          <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/pathtrace.cpp</url>
           <line>537</line>
           <option name="timeStamp" value="76" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/pathtrace.cpp</url>
-          <line>535</line>
-          <option name="timeStamp" value="77" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/pathtrace.cpp</url>
-          <line>536</line>
-          <option name="timeStamp" value="78" />
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="82" />
@@ -740,8 +722,7 @@
             <element signature="e#9821#11069#0" expanded="false" />
             <element signature="e#11960#12385#0" expanded="false" />
             <element signature="e#12781#13322#0" expanded="false" />
-            <element signature="e#13324#14125#0" expanded="false" />
-            <element signature="e#15135#15341#0" expanded="false" />
+            <element signature="e#15139#15345#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1195,8 +1176,7 @@
             <element signature="e#9821#11069#0" expanded="false" />
             <element signature="e#11960#12385#0" expanded="false" />
             <element signature="e#12781#13322#0" expanded="false" />
-            <element signature="e#13324#14125#0" expanded="false" />
-            <element signature="e#15135#15341#0" expanded="false" />
+            <element signature="e#15139#15345#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1677,8 +1657,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/yocto_gl.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="1418" column="0" lean-forward="false" selection-start-line="1418" selection-start-column="0" selection-end-line="1418" selection-end-column="0" />
+        <state relative-caret-position="266">
+          <caret line="14906" column="13" lean-forward="false" selection-start-line="14906" selection-start-column="13" selection-end-line="14906" selection-end-column="13" />
           <folding>
             <element signature="e#26150#26186#0" expanded="true" />
             <element signature="e#26812#26832#0" expanded="true" />
@@ -2115,8 +2095,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pathtrace.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="535" column="14" lean-forward="false" selection-start-line="535" selection-start-column="14" selection-end-line="535" selection-end-column="14" />
+        <state relative-caret-position="336">
+          <caret line="537" column="0" lean-forward="false" selection-start-line="537" selection-start-column="0" selection-end-line="537" selection-end-column="0" />
           <folding>
             <element signature="e#56#77#0" expanded="true" />
             <element signature="e#8790#9019#0" expanded="false" />
@@ -2124,8 +2104,7 @@
             <element signature="e#9821#11069#0" expanded="false" />
             <element signature="e#11960#12385#0" expanded="false" />
             <element signature="e#12781#13322#0" expanded="false" />
-            <element signature="e#13324#14125#0" expanded="false" />
-            <element signature="e#15135#15341#0" expanded="false" />
+            <element signature="e#15139#15345#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -533,10 +533,10 @@ vec3f estimate_li_direct(
     if(next_rand1f(rng)>rrprob) break; //russian roulette
     auto bpt = intersect(scn, pt.x, sample_brdfcos(pt,rng));
     auto is = pt.emission_only();
-    auto ev = eval_brdfcos(pt,d);
-    auto prob = weight_brdfcos(pt,d);
+    auto ev = eval_brdfcos(pt,-d);
+    auto prob = weight_brdfcos(pt,-d);
     w*=ev * (rrprob*prob);
-//    w *= eval_brdfcos(pt,d) * (rrprob*weight_brdfcos(pt,d));
+////    w *= eval_brdfcos(pt,d) * (rrprob*weight_brdfcos(pt,d));
     pt=bpt;
   }
   return li;}

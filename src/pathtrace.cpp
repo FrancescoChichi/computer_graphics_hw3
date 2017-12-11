@@ -212,20 +212,8 @@ point sample_lights(const scene* scn, const point& pt, rng_t& rng) {
 float weight_lights(const scene* scn, const point& lpt, const point& pt) {
 
   if (!lpt.hit()) return 0;
-  // support only one lobe for now
-  if(lpt.emission_only())//env
-    return 4 * pif;
-
-  if(!lpt.ist->shp->points.empty()){
-    auto d = dist(lpt.x, pt.x);
-    return lpt.ist->shp->elem_cdf.back() / (d * d);
-  }
 
   auto d = dist(lpt.x, pt.x);
-
-  auto a = lpt.ist->shp->elem_cdf.back();
-  auto b =  abs(dot(lpt.n, lpt.o));
-
 
   return lpt.ist->shp->elem_cdf.back() *
          abs(dot(lpt.n, lpt.o)) / (d * d);
@@ -525,18 +513,17 @@ vec3f estimate_li_direct(
     if(intersect(scn, pt.x, -lpt.o).hit()){
       auto a = weight_lights(scn,lpt,pt);
       auto b =eval_brdfcos(pt,-lpt.o);
-      auto inc = w*lpt.le * b * a;
+      auto inc = w * lpt.le * b * a;
       li += inc;
 
     }
 
     if(next_rand1f(rng)>rrprob) break; //russian roulette
-    auto bpt = intersect(scn, pt.x, sample_brdfcos(pt,rng));
-    auto is = pt.emission_only();
-    auto ev = eval_brdfcos(pt,-d);
-    auto prob = weight_brdfcos(pt,-d);
-    w*=ev * (rrprob*prob);
-////    w *= eval_brdfcos(pt,d) * (rrprob*weight_brdfcos(pt,d));
+    auto i = sample_brdfcos(pt, rng);
+    auto bpt = intersect(scn, pt.x, i);
+    if(bpt.hit())
+      w *= eval_brdfcos(pt,i) * (rrprob*weight_brdfcos(pt,i));
+
     pt=bpt;
   }
   return li;}

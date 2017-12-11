@@ -501,6 +501,7 @@ vec3f estimate_li_product(
   return li;
 }
 
+
 /// Pathtracing with direct+indirect and russian roulette
 vec3f estimate_li_direct(
     const scene* scn, const vec3f& q, const vec3f& d, int bounces, rng_t& rng) {
@@ -515,10 +516,10 @@ vec3f estimate_li_direct(
     if(intersect(scn, pt.x, -lpt.o).hit()){
       auto a = weight_lights(scn,lpt,pt) * (float)scn->lights.size();
       auto inc = w * lpt.le * eval_brdfcos(pt,-lpt.o) * a;
-      ray3f shadow_ray = ray3f ({q,d,ray_eps,flt_max});
-      auto b = (intersect_ray(scn,shadow_ray,true)) ? zero3f : vec3f{1,1,1};
-      li += inc;
 
+      ray3f shadow_ray = ray3f ({pt.x,-lpt.o,ray_eps, dist(pt.x, lpt.x) - 2 * ray_eps});
+      vec3f b = intersect_ray(scn,shadow_ray,true) ? zero3f : one3f;
+      li += inc * b;
     }
     auto i = sample_brdfcos(pt, rng);
     auto bpt = intersect(scn, pt.x, i);
@@ -528,18 +529,48 @@ vec3f estimate_li_direct(
 
     auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d))), 0.95f);
     if(next_rand1f(rng)<rrprob) break; //russian roulette
-    //if(bpt.hit())
     w *= 1 / (1 - rrprob);
 
     pt=bpt;
   }
-  return li;}
+  return li;
+}
 
 /// Pathtracing with direct+indirect, MIS and russian roulette
 vec3f estimate_li_mis(
     const scene* scn, const vec3f& q, const vec3f& d, int bounces, rng_t& rng) {
   //TODO estimate_li_mis
-  return {};
+  auto pt = intersect(scn, q, d);
+  auto li = pt.le;
+  vec3f w = {1,1,1};
+  for(auto bounce : range(bounces)) {
+    if(!pt.hit()) break;
+
+    auto lpt = sample_lights(scn, pt, rng);
+    if(intersect(scn, pt.x, -lpt.o).hit()){
+      auto a = weight_lights(scn,lpt,pt) * (float)scn->lights.size();
+      auto inc = w * lpt.le * eval_brdfcos(pt,-lpt.o) * (a*eval_brdfcos(pt,-lpt.o));
+
+      ray3f shadow_ray = ray3f ({pt.x,-lpt.o,ray_eps, dist(pt.x, lpt.x) - 2 * ray_eps});
+      vec3f b = intersect_ray(scn,shadow_ray,true) ? zero3f : one3f;
+      li += inc * b;
+    }
+    auto i = sample_brdfcos(pt, rng);
+    auto bpt = intersect(scn, pt.x, i);
+
+    li += w * bpt.le * eval_brdfcos(pt,-bpt.o) *
+          (weight_lights(scn,bpt,pt)*eval_brdfcos(pt,-bpt.o));
+
+    if(!bpt.hit()) break;
+    w *= eval_brdfcos(pt,-bpt.o) * weight_brdfcos(pt,-bpt.o);
+
+    auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d))), 0.95f);
+    if(next_rand1f(rng)<rrprob) break; //russian roulette
+    w *= 1 / (1 - rrprob);
+
+    pt=bpt;
+  }
+  return li;
 }
 
 image4f pathtrace(const scene* scn, int resolution, int samples,

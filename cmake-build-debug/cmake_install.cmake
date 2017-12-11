@@ -1,4 +1,4 @@
-# Install script for directory: /Users/francesco/Desktop/computer_graphics_hw3
+# Install script for directory: /Users/rc/Desktop/computer_graphics_hw3
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,5 +35,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/rc/Desktop/computer_graphics_hw3/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

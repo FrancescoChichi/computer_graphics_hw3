@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug"/>
+				<Option working_dir="/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug"/>
+				<Option working_dir="/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug"/>
+				<Option working_dir="/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="pathtrace">
-				<Option output="/Users/s1r/Desktop/computer_graphics_hw3/bin/pathtrace" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/s1r/Desktop/computer_graphics_hw3/bin"/>
+				<Option output="/Users/francesco/Desktop/computer_graphics_hw3/bin/pathtrace" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/francesco/Desktop/computer_graphics_hw3/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -51,15 +51,15 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 pathtrace"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 pathtrace"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="pathtrace/fast">
-				<Option output="/Users/s1r/Desktop/computer_graphics_hw3/bin/pathtrace" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/s1r/Desktop/computer_graphics_hw3/bin"/>
+				<Option output="/Users/francesco/Desktop/computer_graphics_hw3/bin/pathtrace" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/francesco/Desktop/computer_graphics_hw3/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -71,38 +71,38 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 pathtrace/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 pathtrace/fast"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/s1r/Desktop/computer_graphics_hw3/src/json.hpp">
+		<Unit filename="/Users/francesco/Desktop/computer_graphics_hw3/src/json.hpp">
 			<Option target="pathtrace"/>
 		</Unit>
-		<Unit filename="/Users/s1r/Desktop/computer_graphics_hw3/src/pathtrace.cpp">
+		<Unit filename="/Users/francesco/Desktop/computer_graphics_hw3/src/pathtrace.cpp">
 			<Option target="pathtrace"/>
 		</Unit>
-		<Unit filename="/Users/s1r/Desktop/computer_graphics_hw3/src/printData.h">
+		<Unit filename="/Users/francesco/Desktop/computer_graphics_hw3/src/printData.h">
 			<Option target="pathtrace"/>
 		</Unit>
-		<Unit filename="/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image.h">
+		<Unit filename="/Users/francesco/Desktop/computer_graphics_hw3/src/stb_image.h">
 			<Option target="pathtrace"/>
 		</Unit>
-		<Unit filename="/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image_resize.h">
+		<Unit filename="/Users/francesco/Desktop/computer_graphics_hw3/src/stb_image_resize.h">
 			<Option target="pathtrace"/>
 		</Unit>
-		<Unit filename="/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image_write.h">
+		<Unit filename="/Users/francesco/Desktop/computer_graphics_hw3/src/stb_image_write.h">
 			<Option target="pathtrace"/>
 		</Unit>
-		<Unit filename="/Users/s1r/Desktop/computer_graphics_hw3/src/tinyexr.h">
+		<Unit filename="/Users/francesco/Desktop/computer_graphics_hw3/src/tinyexr.h">
 			<Option target="pathtrace"/>
 		</Unit>
-		<Unit filename="/Users/s1r/Desktop/computer_graphics_hw3/src/yocto_gl.h">
+		<Unit filename="/Users/francesco/Desktop/computer_graphics_hw3/src/yocto_gl.h">
 			<Option target="pathtrace"/>
 		</Unit>
-		<Unit filename="/Users/s1r/Desktop/computer_graphics_hw3/CMakeLists.txt">
+		<Unit filename="/Users/francesco/Desktop/computer_graphics_hw3/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

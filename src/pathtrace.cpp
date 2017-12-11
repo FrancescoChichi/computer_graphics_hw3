@@ -459,6 +459,9 @@ float weight_brdfcos(const point& pt, const vec3f& i) {
   }
 }
 
+
+
+
 /// Naive pathtracing called recurively. Hint: call reculsively with boucnes-1.
 /// In this method, use hemispherical cosine sampling and only lambert BSDF.
 vec3f estimate_li_naive(
@@ -503,7 +506,6 @@ vec3f estimate_li_direct(
     const scene* scn, const vec3f& q, const vec3f& d, int bounces, rng_t& rng) {
 
   auto pt = intersect(scn, q, d);
-  auto rrprob = 1.0f/ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d))), 1.0f);
   auto li = pt.le;
   vec3f w = {1,1,1};
   for(auto bounce : range(bounces)) {
@@ -511,18 +513,23 @@ vec3f estimate_li_direct(
 
     auto lpt = sample_lights(scn, pt, rng);
     if(intersect(scn, pt.x, -lpt.o).hit()){
-      auto a = weight_lights(scn,lpt,pt);
-      auto b =eval_brdfcos(pt,-lpt.o);
-      auto inc = w * lpt.le * b * a;
+      auto a = weight_lights(scn,lpt,pt) * (float)scn->lights.size();
+      auto inc = w * lpt.le * eval_brdfcos(pt,-lpt.o) * a;
+      ray3f shadow_ray = ray3f ({q,d,ray_eps,flt_max});
+      auto b = (intersect_ray(scn,shadow_ray,true)) ? zero3f : vec3f{1,1,1};
       li += inc;
 
     }
-
-    if(next_rand1f(rng)>rrprob) break; //russian roulette
     auto i = sample_brdfcos(pt, rng);
     auto bpt = intersect(scn, pt.x, i);
-    if(bpt.hit())
-      w *= eval_brdfcos(pt,i) * (rrprob*weight_brdfcos(pt,i));
+
+    if(!bpt.hit()) break;
+    w *= eval_brdfcos(pt,-bpt.o) * weight_brdfcos(pt,-bpt.o);
+
+    auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d))), 0.95f);
+    if(next_rand1f(rng)<rrprob) break; //russian roulette
+    //if(bpt.hit())
+    w *= 1 / (1 - rrprob);
 
     pt=bpt;
   }

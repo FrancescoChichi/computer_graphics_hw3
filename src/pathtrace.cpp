@@ -67,24 +67,99 @@ point eval_point(const instance* ist, int eid, const vec4f& euv, const vec3f& o)
   p.ist=ist;
   p.o = o;
 
-  p.x = eval_pos(ist->shp, eid, euv);;
-  p.n = eval_norm(ist->shp, eid, euv);;
-  p.kd = ist->shp->mat->kd;
+  p.x = eval_pos(ist->shp, eid, euv);
+  p.n = eval_norm(ist->shp, eid, euv);
+  auto color = eval_color(ist->shp, eid, euv);
   p.ks = ist->shp->mat->ks;
   p.rs = ist->shp->mat->rs;
-  p.le = ist->shp->mat->ke;
+
+  // handle color
+  auto kx_scale = vec4f{1, 1, 1, 1};
+  if (!ist->shp->color.empty()) kx_scale *= color;
+  // sample emission
+  auto ke = ist->shp->mat->ke * kx_scale.xyz();
+
+  auto kd = vec4f{ist->shp->mat->kd, ist->shp->mat->op} * kx_scale *
+       eval_texture(ist->shp->mat->kd_txt, eval_texcoord(ist->shp, eid, euv));
+
+  p.le = ke;
+  p.kd = kd.xyz();
 
   return p;
+
+
+/*
+  // set shape data
+  auto pt = point();
+
+  // instance
+  pt.ist = ist;
+
+  // direction
+  pt.o = o;
+
+  // shortcuts
+  auto shp = ist->shp;
+  auto mat = ist->shp->mat;
+
+  // compute points and weights
+  auto pos = eval_pos(ist->shp, eid, euv);
+  auto norm = eval_norm(ist->shp, eid, euv);
+  auto texcoord = eval_texcoord(ist->shp, eid, euv);
+  auto color = eval_color(ist->shp, eid, euv);
+
+
+
+
+  // handle normal map
+  if (mat->norm_txt) {
+    auto tangsp = eval_tangsp(ist->shp, eid, euv);
+    auto txt = eval_texture(mat->norm_txt, texcoord, false).xyz() * 2.0f -
+               vec3f{1, 1, 1};
+    auto ntxt = normalize(vec3f{txt.x, -txt.y, txt.z});
+    auto frame =
+        make_frame3_fromzx({0, 0, 0}, norm, {tangsp.x, tangsp.y, tangsp.z});
+    frame.y *= tangsp.w;
+    norm = transform_direction(frame, ntxt);
+  }
+
+  // correct for double sided
+  if (mat->double_sided && dot(norm, o) < 0) norm = -norm;
+
+
+  // handle color
+  auto kx_scale = vec4f{1, 1, 1, 1};
+  if (!shp->color.empty()) kx_scale *= color;
+
+  // handle occlusion
+  if (mat->occ_txt)
+    kx_scale.xyz() *= eval_texture(mat->occ_txt, texcoord).xyz();
+
+  // sample emission
+  auto ke = mat->ke * kx_scale.xyz();
+
+  // sample reflectance
+  auto kd = zero4f, ks = zero4f, kt = zero4f;
+
+
+  // set up final values
+  pt.le = ke * kd.w;
+  pt.kd = kd.xyz() * kd.w;
+  pt.ks =
+      (ks.xyz() != zero3f && ks.w < 0.9999f) ? ks.xyz() * kd.w : zero3f;
+  pt.rs = (ks.xyz() != zero3f && ks.w < 0.9999f) ? ks.w * ks.w : 0;
+
+  pt.x = pos;
+  pt.n = norm;
+
+  // done
+  return pt;*/
 }
 
 /// Evaluate the point proerties for an environment (only o and le).
 point eval_point(const environment* env, const vec3f& o) {
   auto p = point();
 
-  //p.le=env->ke;
-  p.o= o;
-  p.le=env->ke;
-  /*
   // maerial
   auto ke = env->ke;
   if (env->ke_txt) {
@@ -95,10 +170,13 @@ point eval_point(const environment* env, const vec3f& o) {
     ke *= eval_texture(env->ke_txt, texcoord).xyz();
   }
 
+
+  p.le=ke;
+  p.o= o;
   // create emission lobe
-  if (ke != zero3f) { p.le =  ke; }
+  //if (ke != zero3f) { p.le =  ke; }
   //if (env->ke != zero3f) { p.le =  env->ke; }
-*/
+
   // done
   return p;
 
@@ -212,6 +290,9 @@ point sample_lights(const scene* scn, const point& pt, rng_t& rng) {
 float weight_lights(const scene* scn, const point& lpt, const point& pt) {
 
   if (!lpt.hit()) return 0;
+
+  if(lpt.ist->shp->elem_cdf.empty())
+    return 4 * pif;
 
   auto d = dist(lpt.x, pt.x);
 
@@ -548,18 +629,19 @@ vec3f estimate_li_mis(
 
     auto lpt = sample_lights(scn, pt, rng);
     if(intersect(scn, pt.x, -lpt.o).hit()){
-      auto a = weight_lights(scn,lpt,pt) * (float)scn->lights.size();
-      auto inc = w * lpt.le * eval_brdfcos(pt,-lpt.o) * (a*eval_brdfcos(pt,-lpt.o));
+      auto lw = weight_lights(scn,lpt,pt) * (float)scn->lights.size();
+      auto inc = w * lpt.le * eval_brdfcos(pt,-lpt.o) * lw;
 
       ray3f shadow_ray = ray3f ({pt.x,-lpt.o,ray_eps, dist(pt.x, lpt.x) - 2 * ray_eps});
       vec3f b = intersect_ray(scn,shadow_ray,true) ? zero3f : one3f;
-      li += inc * b;
+      li += inc * b * _impl_trace::weight_mis(lw, weight_brdfcos(pt, -lpt.o));
     }
     auto i = sample_brdfcos(pt, rng);
     auto bpt = intersect(scn, pt.x, i);
+    auto bw = weight_brdfcos(pt, -bpt.o);
 
-    li += w * bpt.le * eval_brdfcos(pt,-bpt.o) *
-          (weight_lights(scn,bpt,pt)*eval_brdfcos(pt,-bpt.o));
+    li += w * bpt.le * eval_brdfcos(pt,-bpt.o) * bw *
+        _impl_trace::weight_mis(bw, weight_lights(scn, bpt, pt));
 
     if(!bpt.hit()) break;
     w *= eval_brdfcos(pt,-bpt.o) * weight_brdfcos(pt,-bpt.o);

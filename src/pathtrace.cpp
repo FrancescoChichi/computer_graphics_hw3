@@ -31,8 +31,11 @@ struct point {
 ray3f sample_camera(const camera* cam, int i, int j, int res, rng_t& rng) {
 
 
-  auto u = (i+next_rand1f(rng))/res;
-  auto v = 1 - (j+next_rand1f(rng))/res;
+  int height = res;
+  int width = (int)round(res*cam->aspect);
+
+  auto u = (i+next_rand1f(rng))/width;
+  auto v = 1 - (j+next_rand1f(rng))/height;
 
   float h = 2*tan(cam->yfov/2);
   float w = h*cam->aspect;
@@ -299,14 +302,18 @@ float weight_lights(const scene* scn, const point& lpt, const point& pt) {
   if(!lpt.ist) //env light
     return 4 * pif;
 
-  if (!lpt.hit()) return 0;
+  if(!lpt.hit()) return 0;
 
   auto d = dist(lpt.x, pt.x);
 
-  return lpt.ist->shp->elem_cdf.back() *
+  if(!lpt.ist->shp->points.empty())
+    return lpt.ist->shp->elem_cdf.back() / (d * d);
+
+  if(!lpt.ist->shp->triangles.empty())
+    return lpt.ist->shp->elem_cdf.back() *
          abs(dot(lpt.n, lpt.o)) / (d * d);
 
-
+  return {};
 }
 
 // Evaluates the GGX distribution and geometric term
@@ -367,8 +374,11 @@ vec3f eval_triangle_brdfcos(const point& pt, const vec3f& i) {///OK
     // microfacet term
     auto dg = eval_ggx(pt.rs, ndh, ndi, ndo);
 
+    auto odh = clamp(dot(o, h), 0.0f, 1.0f);
+    auto ks = _impl_trace::eval_fresnel_schlick(pt.ks, odh, pt.rs);
+
     // sum up
-    brdfcos += pt.ks * ndi * dg / (4 * ndi * ndo);
+    brdfcos += ks * ndi * dg / (4 * ndi * ndo);
   }
 
 
@@ -556,7 +566,7 @@ inline vec3f eval_emission(const point& pt) {
   if (pt.le==zero3f) return zero3f;
 
   auto ke = zero3f;
-  if(pt.ist)
+  if(pt.ist && pt.ist->shp->points.empty())
     ke += (dot(wn, wo) > 0) ? em : zero3f;
   else
     ke += em;
@@ -579,6 +589,7 @@ inline ray3f offset_ray(
 // Offsets a ray origin to avoid self-intersection.
 inline ray3f offset_ray(
     const point& pt, const point& pt2) {
+  //auto ray_dist = (pt2.ist) ? dist(pt.x, pt2.x) : flt_max;
   auto ray_dist = (pt2.ist) ? dist(pt.x, pt2.x) : flt_max;
   if (dot(pt2.x - pt.x, pt.n) > 0) {
     return ray3f(pt.x + pt.n * ray_eps, -pt2.o,
@@ -592,11 +603,17 @@ inline ray3f offset_ray(
 
 // Test occlusion
 inline vec3f eval_transmission(const scene* scn, const point& pt,
-                               const point& lpt, int bounces) {
+                               const point& lpt) {
 
   //if(false){
-  auto shadow_ray = offset_ray(pt, lpt);
-    return (intersect_ray(scn, shadow_ray, true)) ? zero3f : vec3f{1, 1, 1};
+  //if(!lpt.ist) return one3f;
+  ray3f shadow_ray;
+  if(!lpt.ist)
+    shadow_ray = ray3f(pt.x + pt.n * ray_eps, -lpt.o, ray_eps, flt_max - 2 * ray_eps);
+  else
+    shadow_ray = offset_ray(pt, lpt);
+
+  return (intersect_ray(scn, shadow_ray, true)) ? zero3f : vec3f{1, 1, 1};
   //}
   //if (intersect_ray(scn, shadow_ray, true))
     //return zero3f;
@@ -642,14 +659,12 @@ vec3f estimate_li_product(
   auto pt = intersect(scn, q, d);
   auto li = eval_emission(pt);
   vec3f w = {1,1,1};
-  auto rrprob = 1.0f/ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 1.0f);
-  //auto rrprob = 1.0f/ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d),pt.rs)), 1.0f);
 
   for(auto bounce : range(bounces)) {
     if(!pt.hit()) break;
     auto i = sample_brdfcos(pt, rng);
     auto bpt = intersect(scn, pt.x, i);
-    w *= eval_brdfcos(pt,i) * (rrprob*weight_brdfcos(pt,i)); // update w  //pr(pt.f)*p(i)
+    w *= eval_brdfcos(pt,i) * (weight_brdfcos(pt,i)); // update w  //pr(pt.f)*p(i)
     li += w * eval_emission(bpt);          // accumulate li
     pt = bpt;                  // “recurse”
   }
@@ -667,47 +682,31 @@ vec3f estimate_li_direct(
   vec3f w = {1,1,1};
   for(auto bounce : range(bounces)) {
 
-    //if (pt.le!=zero3f) li += w * eval_emission(pt);
-
     auto lpt = sample_lights(scn, pt, rng);
-    //if(intersect(scn, pt.x, -lpt.o).hit()){
     auto lw = weight_lights(scn,lpt, pt) * (float)scn->lights.size();
     auto lke = eval_emission(lpt);
     auto lbc = eval_brdfcos(pt, -lpt.o);
     auto lld = lke * lbc * lw;
     if (lld != zero3f) {
-      li += w * lld * eval_transmission(scn, pt, lpt, bounces);
+      li += w * lld * eval_transmission(scn, pt, lpt);
     }
 
-   /* //auto a = weight_lights(scn,lpt,pt) * (float)scn->lights.size();
-    auto inc = w * eval_emission(lpt) * eval_brdfcos(pt,-lpt.o) * a;
+    if (bounce == bounces - 1) break;
 
-    //auto ray_dist = (lpt.ist) ? dist(pt.x, lpt.x) : flt_max;
-    //ray3f shadow_ray = ray3f ({pt.x,-lpt.o,ray_eps, ray_dist - 2 * ray_eps});
-    auto shadow_ray = offset_ray(pt, lpt);
-    auto b = intersect_ray(scn,shadow_ray, true) ? zero3f : one3f;
 
-    inc *= b;
-    if (inc != zero3f)
-      li += inc ;*/
-   // }
-    auto i = sample_brdfcos(pt, rng);
-    auto bpt = intersect(scn, pt.x, i);
+    if (bounce > 2) {
+      auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 0.95f);
+      if (next_rand1f(rng) < rrprob) break; //russian roulette
+      w *= 1 / (1 - rrprob);
+    }
 
-    if(!bpt.hit()) break;
-    w *= eval_brdfcos(pt,-bpt.o) * weight_brdfcos(pt,-bpt.o);
-
-    // continue path
+    auto wi = sample_brdfcos(pt, rng);
+    w *= eval_brdfcos(pt, wi) * weight_brdfcos(pt, wi);
     if (w == zero3f) break;
 
+    pt = intersect(scn, offset_ray(pt, wi).o, offset_ray(pt, wi).d);
+    if (!pt.hit()) break;
 
-    auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 0.95f);
-    //auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d),pt.rs)), 0.95f);
-    if(next_rand1f(rng)<rrprob) break; //russian roulette
-    w *= 1 / (1 - rrprob);
-
-
-    pt=bpt;
   }
   return li;
 }
@@ -723,31 +722,36 @@ vec3f estimate_li_mis(
     if(!pt.hit()) break;
 
     auto lpt = sample_lights(scn, pt, rng);
-    if(intersect(scn, pt.x, -lpt.o).hit()){
-      auto lw = weight_lights(scn,lpt,pt) * (float)scn->lights.size();
-      auto inc = w * eval_emission(lpt) * eval_brdfcos(pt,-lpt.o) * lw;
-
-      //auto ray_dist = (lpt.ist) ? dist(pt.x, lpt.x) : flt_max;
-      //ray3f shadow_ray = ray3f ({pt.x,-lpt.o,ray_eps, ray_dist - 2 * ray_eps});
-      auto shadow_ray = offset_ray(pt, lpt);
-      auto b = intersect_ray(scn,shadow_ray, true) ? zero3f : one3f;
-
-      li += inc * b * _impl_trace::weight_mis(lw, weight_brdfcos(pt, -lpt.o));
+    auto lw = weight_lights(scn,lpt, pt) * (float)scn->lights.size();
+    auto lke = eval_emission(lpt);
+    auto lbc = eval_brdfcos(pt, -lpt.o);
+    auto lld = lke * lbc * lw;
+    if (lld != zero3f) {
+      li += w * lld * eval_transmission(scn, pt, lpt) *
+          _impl_trace::weight_mis(lw, weight_brdfcos(pt, -lpt.o));
     }
-    auto i = sample_brdfcos(pt, rng);
-    auto bpt = intersect(scn, pt.x, i);
-    auto bw = weight_brdfcos(pt, -bpt.o);
 
-    if(!bpt.hit()) break;
-    li += w * eval_emission(bpt) * eval_brdfcos(pt,-bpt.o) * bw *
-          _impl_trace::weight_mis(bw, weight_lights(scn, bpt, pt));
+    auto bpt = intersect(scn, pt.x, sample_brdfcos(pt, rng));
+    auto bw = weight_brdfcos(pt, -bpt.o);
+    auto bke = eval_emission(bpt);
+    auto bbc = eval_brdfcos(pt, -bpt.o);
+    auto bld = bke * bbc * bw;
+    if (bld != zero3f) {
+      li += w * bld * _impl_trace::weight_mis(bw, weight_lights(scn, bpt, pt));
+    }
+
+    if (bounce == bounces - 1) break;
+    if (!bpt.hit()) break;
 
     w *= eval_brdfcos(pt,-bpt.o) * weight_brdfcos(pt,-bpt.o);
+    if (w == zero3f) break;
 
-    auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 1.0f);
-    //auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d),pt.rs)), 1.0f);
-    if(next_rand1f(rng)<rrprob) break; //russian roulette
-    w *= 1 / (1 - rrprob);
+    // roussian roulette
+    if (bounce > 2) {
+      auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 0.95f);
+      if (next_rand1f(rng) < rrprob) break; //russian roulette
+      w *= 1 / (1 - rrprob);
+    }
 
     pt=bpt;
   }

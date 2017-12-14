@@ -13,59 +13,32 @@
   <component name="ChangeListManager">
     <list default="true" id="24ef128b-3e9e-4408-98b1-0a04637756dc" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/cornell_box_mis.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/cornell_box_direct.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/cornell_box_mis.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/cornell_box_naive.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/cornell_box_product.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/matball_gold02_arealight_direct.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/matball_gold02_arealight_mis.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/matball_gold02_envlight_direct.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/matball_gold02_envlight_mis.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/matball_plastic03_arealight_direct.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/matball_plastic03_arealight_mis.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/matball_plastic03_envlight_direct.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/matball_plastic03_envlight_mis.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/matball_silver01_arealight_direct.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/matball_silver01_arealight_mis.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/matball_silver01_envlight_direct.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/matball_silver01_envlight_mis.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/simple_arealight_direct.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/simple_arealight_mis.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/simple_envlight_direct.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/simple_envlight_mis.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/simple_pointlight_direct.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/old/simple_pointlight_mis.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/pathtrace" afterPath="$PROJECT_DIR$/bin/pathtrace" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeDetermineCompilerABI_C.bin" afterPath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeDetermineCompilerABI_C.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeDetermineCompilerABI_CXX.bin" afterPath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeDetermineCompilerABI_CXX.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CompilerIdC/a.out" afterPath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CompilerIdC/a.out" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CompilerIdCXX/a.out" afterPath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CompilerIdCXX/a.out" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/feature_tests.bin" afterPath="$PROJECT_DIR$/build/CMakeFiles/feature_tests.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeDetermineCompilerABI_C.bin" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeDetermineCompilerABI_C.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeDetermineCompilerABI_CXX.bin" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeDetermineCompilerABI_CXX.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CompilerIdC/a.out" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CompilerIdC/a.out" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CompilerIdCXX/a.out" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CompilerIdCXX/a.out" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/matball_gold02_envlight_direct.png" afterPath="$PROJECT_DIR$/out/matball_gold02_envlight_direct.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xcode/graphics17b_hw03.xcodeproj/project.xcworkspace/xcuserdata/s1r.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/xcode/graphics17b_hw03.xcodeproj/project.xcworkspace/xcuserdata/s1r.xcuserdatad/UserInterfaceState.xcuserstate" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeCache.txt" afterPath="$PROJECT_DIR$/build/CMakeCache.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeCCompiler.cmake" afterPath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeCCompiler.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeCXXCompiler.cmake" afterPath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeCXXCompiler.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeSystem.cmake" afterPath="$PROJECT_DIR$/build/CMakeFiles/3.10.0-rc3/CMakeSystem.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeDirectoryInformation.cmake" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeDirectoryInformation.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeOutput.log" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeOutput.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile.cmake" afterPath="$PROJECT_DIR$/build/CMakeFiles/Makefile.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" afterPath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/TargetDirectories.txt" afterPath="$PROJECT_DIR$/build/CMakeFiles/TargetDirectories.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/CXX.includecache" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/CXX.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/DependInfo.cmake" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/DependInfo.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/build.make" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/build.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/depend.internal" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/depend.internal" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/flags.make" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/flags.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/link.txt" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/link.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/Makefile" afterPath="$PROJECT_DIR$/build/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/cmake_install.cmake" afterPath="$PROJECT_DIR$/build/cmake_install.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeCCompiler.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeCCompiler.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeCXXCompiler.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeCXXCompiler.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeSystem.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.8.2/CMakeSystem.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/CXX.includecache" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/CXX.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/DependInfo.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/DependInfo.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/build.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/build.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/depend.internal" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/depend.internal" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/flags.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/flags.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/link.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/link.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/graphics17b_hw03.cbp" afterPath="$PROJECT_DIR$/cmake-build-debug/graphics17b_hw03.cbp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pathtrace.cpp" afterPath="$PROJECT_DIR$/src/pathtrace.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xcode/graphics17b_hw03.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/xcode/graphics17b_hw03.xcodeproj/project.pbxproj" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -80,10 +53,13 @@
       <file leaf-file-name="pathtrace.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pathtrace.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="683">
-              <caret line="645" column="102" lean-forward="false" selection-start-line="645" selection-start-column="82" selection-end-line="645" selection-end-column="102" />
+            <state relative-caret-position="179">
+              <caret line="589" column="13" lean-forward="false" selection-start-line="589" selection-start-column="13" selection-end-line="589" selection-end-column="13" />
               <folding>
                 <element signature="e#56#77#0" expanded="true" />
+                <element signature="e#667#1336#0" expanded="false" />
+                <element signature="e#12637#13885#0" expanded="false" />
+                <element signature="e#13887#14774#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -92,8 +68,8 @@
       <file leaf-file-name="yocto_gl.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/yocto_gl.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="15911" column="13" lean-forward="false" selection-start-line="15911" selection-start-column="13" selection-end-line="15911" selection-end-column="13" />
+            <state relative-caret-position="272">
+              <caret line="15883" column="24" lean-forward="false" selection-start-line="15883" selection-start-column="24" selection-end-line="15883" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -103,26 +79,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>camera</find>
-      <find>eval_cam</find>
-      <find>eval_color</find>
-      <find>kx_scale</find>
-      <find>color</find>
-      <find>elem_cdf</find>
-      <find>weight_light</find>
-      <find>_mis</find>
-      <find>eval_em</find>
-      <find>sample_brdfcos</find>
-      <find>_li_</find>
-      <find>emission</find>
-      <find>lke</find>
-      <find>intersect</find>
-      <find>eval_emission</find>
-      <find>eval_tra</find>
       <find>_li_di</find>
       <find>bounces</find>
       <find>eval_tran</find>
-      <find>rrp</find>
       <find>ks</find>
       <find>.kt</find>
       <find>eval</find>
@@ -131,8 +90,25 @@
       <find>Schlick</find>
       <find>transmissi</find>
       <find>transmi</find>
-      <find>eval_transmission</find>
+      <find>.env</find>
+      <find>.env)</find>
+      <find>rrpro</find>
+      <find>rrp</find>
+      <find>_li</find>
+      <find>res</find>
+      <find>weight_light</find>
+      <find>_light</find>
+      <find>points.empty()</find>
+      <find>env</find>
+      <find>eval_brdfcos</find>
+      <find>_li_</find>
       <find>eval_fresnel_schlick</find>
+      <find>nomi</find>
+      <find>rrprob</find>
+      <find>emission</find>
+      <find>li</find>
+      <find>offset_ray</find>
+      <find>eval_transmission</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -190,11 +166,14 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.plastic arealict direct">
+  <component name="RunManager" selected="Application.envlight_direct">
     <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
       <envs />
     </configuration>
     <configuration name="box mis" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-r 360 -s 16 -i mis -p -o ../outd/cornell_box_mis.png ../in/cornell_box/cornell_box.obj " PASS_PARENT_ENVS_2="true" PROJECT_NAME="graphics17b_hw03" TARGET_NAME="pathtrace" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="graphics17b_hw03" RUN_TARGET_NAME="pathtrace">
+      <envs />
+    </configuration>
+    <configuration name="box product" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-r 360 -s 16 -i product -p -o ../outd/cornell_box_product.png ../in/cornell_box/cornell_box.obj" PASS_PARENT_ENVS_2="true" PROJECT_NAME="graphics17b_hw03" TARGET_NAME="pathtrace" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="graphics17b_hw03" RUN_TARGET_NAME="pathtrace">
       <envs />
     </configuration>
     <configuration name="direct" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-r 360 -s 256 -i direct -p -o ../out/cornell_box_direct.png ../in/cornell_box/cornell_box.obj" PASS_PARENT_ENVS_2="true" PROJECT_NAME="graphics17b_hw03" TARGET_NAME="pathtrace" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="graphics17b_hw03" RUN_TARGET_NAME="pathtrace">
@@ -221,13 +200,19 @@
     <configuration name="plastic arealict direct" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-r 360 -s 16 -i direct -p -o ../outd/matball_plastic03_arealight_direct.png ../in/matball_plastic03_arealight/matball_plastic03_arealight.obj " PASS_PARENT_ENVS_2="true" PROJECT_NAME="graphics17b_hw03" TARGET_NAME="pathtrace" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="graphics17b_hw03" RUN_TARGET_NAME="pathtrace">
       <envs />
     </configuration>
+    <configuration name="pointlight direct" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-r 360 -s 16 -i direct -p -o ../outd/simple_pointlight_direct.png ../in/simple_pointlight/simple_pointlight.obj " PASS_PARENT_ENVS_2="true" PROJECT_NAME="graphics17b_hw03" TARGET_NAME="pathtrace" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="graphics17b_hw03" RUN_TARGET_NAME="pathtrace">
+      <envs />
+    </configuration>
     <configuration name="product" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-r 360 -s 256 -i product -p -o ../out/cornell_box_product.png ../in/cornell_box/cornell_box.obj" PASS_PARENT_ENVS_2="true" PROJECT_NAME="graphics17b_hw03" TARGET_NAME="pathtrace" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="graphics17b_hw03" RUN_TARGET_NAME="pathtrace">
       <envs />
     </configuration>
     <configuration name="simple arealight" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-r 360 -s 16 -i direct -p -o ../outd/simple_arealight_direct.png ../in/simple_arealight/simple_arealight.obj" PASS_PARENT_ENVS_2="true" PROJECT_NAME="graphics17b_hw03" TARGET_NAME="pathtrace" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="graphics17b_hw03" RUN_TARGET_NAME="pathtrace">
       <envs />
     </configuration>
-    <list size="12">
+    <configuration name="simple_pointlight_mis" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-r 360 -s 16 -i mis -p -o ../outd/simple_pointlight_mis.png ../in/simple_pointlight/simple_pointlight.obj " PASS_PARENT_ENVS_2="true" PROJECT_NAME="graphics17b_hw03" TARGET_NAME="pathtrace" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="graphics17b_hw03" RUN_TARGET_NAME="pathtrace">
+      <envs />
+    </configuration>
+    <list size="15">
       <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
       <item index="1" class="java.lang.String" itemvalue="Application.naive" />
       <item index="2" class="java.lang.String" itemvalue="Application.product" />
@@ -239,7 +224,10 @@
       <item index="8" class="java.lang.String" itemvalue="Application.box mis" />
       <item index="9" class="java.lang.String" itemvalue="Application.simple arealight" />
       <item index="10" class="java.lang.String" itemvalue="Application.envlight_direct" />
-      <item index="11" class="java.lang.String" itemvalue="Application.gold02_arealight" />
+      <item index="11" class="java.lang.String" itemvalue="Application.simple_pointlight_mis" />
+      <item index="12" class="java.lang.String" itemvalue="Application.pointlight direct" />
+      <item index="13" class="java.lang.String" itemvalue="Application.box product" />
+      <item index="14" class="java.lang.String" itemvalue="Application.gold02_arealight" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
@@ -259,12 +247,12 @@
       <workItem from="1512995684075" duration="7210000" />
       <workItem from="1513010979383" duration="4931000" />
       <workItem from="1513018964377" duration="17995000" />
-      <workItem from="1513040584058" duration="34127000" />
+      <workItem from="1513040584058" duration="43936000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="158537000" />
+    <option name="totallyTimeSpent" value="168346000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -285,7 +273,7 @@
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28997022" sideWeight="0.5106496" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24788392" sideWeight="0.48935038" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24788392" sideWeight="0.48935038" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24892704" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31922612" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -309,15 +297,15 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28997022" sideWeight="0.5106496" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24788392" sideWeight="0.48935038" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24788392" sideWeight="0.48935038" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31922612" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24892704" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24892704" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26602176" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26602176" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -332,16 +320,11 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/pathtrace.cpp</url>
-          <line>612</line>
-          <option name="timeStamp" value="139" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/pathtrace.cpp</url>
-          <line>703</line>
-          <option name="timeStamp" value="141" />
+          <line>690</line>
+          <option name="timeStamp" value="157" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="142" />
+      <option name="time" value="158" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -352,6 +335,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#56#77#0" expanded="true" />
+            <element signature="e#667#1336#0" expanded="false" />
+            <element signature="e#12637#13885#0" expanded="false" />
+            <element signature="e#13887#14774#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -362,6 +348,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#56#77#0" expanded="true" />
+            <element signature="e#667#1336#0" expanded="false" />
+            <element signature="e#12637#13885#0" expanded="false" />
+            <element signature="e#13887#14774#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -380,6 +369,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#56#77#0" expanded="true" />
+            <element signature="e#667#1336#0" expanded="false" />
+            <element signature="e#12637#13885#0" expanded="false" />
+            <element signature="e#13887#14774#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -398,6 +390,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#56#77#0" expanded="true" />
+            <element signature="e#667#1336#0" expanded="false" />
+            <element signature="e#12637#13885#0" expanded="false" />
+            <element signature="e#13887#14774#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -416,6 +411,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#56#77#0" expanded="true" />
+            <element signature="e#667#1336#0" expanded="false" />
+            <element signature="e#12637#13885#0" expanded="false" />
+            <element signature="e#13887#14774#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -434,6 +432,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#56#77#0" expanded="true" />
+            <element signature="e#667#1336#0" expanded="false" />
+            <element signature="e#12637#13885#0" expanded="false" />
+            <element signature="e#13887#14774#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -452,6 +453,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#56#77#0" expanded="true" />
+            <element signature="e#667#1336#0" expanded="false" />
+            <element signature="e#12637#13885#0" expanded="false" />
+            <element signature="e#13887#14774#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -488,18 +492,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/yocto_gl.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="15911" column="13" lean-forward="false" selection-start-line="15911" selection-start-column="13" selection-end-line="15911" selection-end-column="13" />
+        <state relative-caret-position="272">
+          <caret line="15883" column="24" lean-forward="false" selection-start-line="15883" selection-start-column="24" selection-end-line="15883" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pathtrace.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="683">
-          <caret line="645" column="102" lean-forward="false" selection-start-line="645" selection-start-column="82" selection-end-line="645" selection-end-column="102" />
+        <state relative-caret-position="179">
+          <caret line="589" column="13" lean-forward="false" selection-start-line="589" selection-start-column="13" selection-end-line="589" selection-end-column="13" />
           <folding>
             <element signature="e#56#77#0" expanded="true" />
+            <element signature="e#667#1336#0" expanded="false" />
+            <element signature="e#12637#13885#0" expanded="false" />
+            <element signature="e#13887#14774#0" expanded="false" />
           </folding>
         </state>
       </provider>

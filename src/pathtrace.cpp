@@ -18,6 +18,7 @@ struct point {
   vec3f o = zero3f; //outgoing direction
   vec3f kd = zero3f;//diffuse
   vec3f ks = zero3f;//specular
+  vec3f kt = zero3f;//specular
   float rs = 0.5;   //specular roughness
 
   bool hit() const { return (bool)ist; }
@@ -36,60 +37,19 @@ ray3f sample_camera(const camera* cam, int i, int j, int res, rng_t& rng) {
   float h = 2*tan(cam->yfov/2);
   float w = h*cam->aspect;
 
-  auto height = res;
-  auto width = (int)std::round(cam->aspect * res);
-
 
   auto o = vec3f{next_rand1f(rng) * cam->aperture, next_rand1f(rng) * cam->aperture, 0};
   auto q = vec3f{w * cam->focus * (u - 0.5f),
                  h * cam->focus * (v - 0.5f), -cam->focus};
 
-  return ray3f(transform_point(cam->frame, o),
-               transform_direction(cam->frame, normalize(q - o)));
-
-/*
-  vec3f ql = vec3f{(u-0.5f) * width, (v-0.5f) * height, -1};
-  vec3f ol = vec3f{0, 0, 0};
-
-  auto ray = transform_ray(cam->frame,
-                           ray3f(zero3f,normalize(ql)));
-  return ray;
-  return {transform_point(cam->frame, ol), transform_direction(cam->frame, normalize(-ql - ol))};
-*/
+  return {transform_point(cam->frame, o),
+          transform_direction(cam->frame, normalize(q - o)),ray_eps,flt_max};
 
 }
 
 /// Evaluate the point proerties for a shape.
 point eval_point(const instance* ist, int eid, const vec4f& euv, const vec3f& o) {
 
-  auto p = point();
-
-  p.ist=ist;
-  p.o = o;
-
-  p.x = eval_pos(ist->shp, eid, euv);
-  p.n = eval_norm(ist->shp, eid, euv);
-  auto color = eval_color(ist->shp, eid, euv);
-  p.ks = ist->shp->mat->ks;
-  p.rs = ist->shp->mat->rs;
-
-  // handle color
-  auto kx_scale = vec4f{1, 1, 1, 1};
-  if (!ist->shp->color.empty()) kx_scale *= color;
-  // sample emission
-  auto ke = ist->shp->mat->ke * kx_scale.xyz();
-
-  auto kd = vec4f{ist->shp->mat->kd, ist->shp->mat->op} * kx_scale *
-       eval_texture(ist->shp->mat->kd_txt, eval_texcoord(ist->shp, eid, euv));
-
-  p.le = ke;
-  p.kd = kd.xyz();
-
-  return p;
-
-
-/*
-  // set shape data
   auto pt = point();
 
   // instance
@@ -108,9 +68,6 @@ point eval_point(const instance* ist, int eid, const vec4f& euv, const vec3f& o)
   auto texcoord = eval_texcoord(ist->shp, eid, euv);
   auto color = eval_color(ist->shp, eid, euv);
 
-
-
-
   // handle normal map
   if (mat->norm_txt) {
     auto tangsp = eval_tangsp(ist->shp, eid, euv);
@@ -126,7 +83,6 @@ point eval_point(const instance* ist, int eid, const vec4f& euv, const vec3f& o)
   // correct for double sided
   if (mat->double_sided && dot(norm, o) < 0) norm = -norm;
 
-
   // handle color
   auto kx_scale = vec4f{1, 1, 1, 1};
   if (!shp->color.empty()) kx_scale *= color;
@@ -140,26 +96,80 @@ point eval_point(const instance* ist, int eid, const vec4f& euv, const vec3f& o)
 
   // sample reflectance
   auto kd = zero4f, ks = zero4f, kt = zero4f;
-
+  switch (mat->mtype) {
+    case material_type::specular_roughness: {
+      kd = vec4f{mat->kd, mat->op} * kx_scale *
+           eval_texture(mat->kd_txt, texcoord);
+      ks = vec4f{mat->ks, mat->rs} * vec4f{kx_scale.xyz(), 1} *
+           eval_texture(mat->ks_txt, texcoord);
+      kt = vec4f{mat->kt, mat->rs} * vec4f{kx_scale.xyz(), 1} *
+           eval_texture(mat->kt_txt, texcoord);
+    } break;
+    case material_type::metallic_roughness: {
+      auto kb = vec4f{mat->kd, mat->op} * kx_scale *
+                eval_texture(mat->kd_txt, texcoord);
+      auto km = vec2f{mat->ks.x, mat->rs};
+      if (mat->ks_txt) {
+        auto ks_txt = eval_texture(mat->ks_txt, texcoord);
+        km.x *= ks_txt.y;
+        km.y *= ks_txt.z;
+      }
+      kd = vec4f{kb.xyz() * (1 - km.x), kb.w};
+      ks =
+          vec4f{kb.xyz() * km.x + vec3f{0.04f, 0.04f, 0.04f} * (1 - km.x),
+                km.y};
+    } break;
+    case material_type::specular_glossiness: {
+      kd = vec4f{mat->kd, mat->op} * kx_scale *
+           eval_texture(mat->kd_txt, texcoord);
+      ks = vec4f{mat->ks, mat->rs} * vec4f{kx_scale.xyz(), 1} *
+           eval_texture(mat->ks_txt, texcoord);
+      ks.w = 1 - ks.w;  // glossiness -> roughness
+    } break;
+  }
 
   // set up final values
+
+  pt.x=pos;
+  pt.n=norm;
   pt.le = ke * kd.w;
   pt.kd = kd.xyz() * kd.w;
   pt.ks =
       (ks.xyz() != zero3f && ks.w < 0.9999f) ? ks.xyz() * kd.w : zero3f;
   pt.rs = (ks.xyz() != zero3f && ks.w < 0.9999f) ? ks.w * ks.w : 0;
-
-  pt.x = pos;
-  pt.n = norm;
+  pt.kt = {1 - kd.w, 1 - kd.w, 1 - kd.w};
+  if (kt.xyz() != zero3f) pt.kt *= kt.xyz();
 
   // done
-  return pt;*/
+  return pt;
+
+
+
+
+
+  /*auto p = point();
+
+  p.ist=ist;
+  p.o = o;
+
+  p.x = eval_pos(ist->shp, eid, euv);
+  p.n = eval_norm(ist->shp, eid, euv);
+  //auto color = eval_color(ist->shp, eid, euv);
+  p.ks = ist->shp->mat->ks * eval_texture(ist->shp->mat->ks_txt, eval_texcoord(ist->shp, eid, euv)).xyz();
+  p.rs = ist->shp->mat->rs;
+
+
+  p.kd = ist->shp->mat->kd * eval_texture(ist->shp->mat->kd_txt, eval_texcoord(ist->shp, eid, euv)).xyz();
+
+  p.le = ist->shp->mat->ke * eval_texture(ist->shp->mat->ke_txt, eval_texcoord(ist->shp, eid, euv)).xyz();
+
+  return p;*/
 }
 
 /// Evaluate the point proerties for an environment (only o and le).
 point eval_point(const environment* env, const vec3f& o) {
   auto p = point();
-
+/*
   // maerial
   auto ke = env->ke;
   if (env->ke_txt) {
@@ -169,9 +179,9 @@ point eval_point(const environment* env, const vec3f& o) {
     auto texcoord = vec2f{phi, theta};
     ke *= eval_texture(env->ke_txt, texcoord).xyz();
   }
-
-
-  p.le=ke;
+*/
+  //p.le=ke;
+  p.le=env->ke;
   p.o= o;
   // create emission lobe
   //if (ke != zero3f) { p.le =  ke; }
@@ -202,7 +212,6 @@ point intersect(
 /// `sample_XXX_cdf`. For the homework support only point and triangles.
 void init_lights(scene* scn) {
 
-  scn->lights.clear();
 
   for (auto lgt : scn->lights) delete lgt;
   scn->lights.clear();
@@ -252,7 +261,7 @@ point sample_light(const light* lgt, const point& pt, float rne, const vec2f& rn
   }
   else if (lgt->env) {
 
-//    auto a = lgt->env->ke*(lgt->env->ke_txt.txt->hdr.at(atan2(lgt->env->frame.pos().x,lgt->env->frame.pos().x)*(1/(2*pif)),acos(lgt->env->frame.pos().y)/pif)).xyz();
+    //auto a = lgt->env->ke*(lgt->env->ke_txt.txt->hdr.at(atan2(lgt->env->frame.pos().x,lgt->env->frame.pos().x)*(1/(2*pif)),acos(lgt->env->frame.pos().y)/pif)).xyz();
     auto z = -1 + 2 * rn.y;
     auto rr = sqrt(clamp(1 - z * z, (float)0, (float)1));
     auto phi = 2 * pif * rn.x;
@@ -273,10 +282,6 @@ point sample_light(const light* lgt, const point& pt, float rne, const vec2f& rn
 /// To use with MIS, fold the cosine at the light and r^2 into this funciton.
 point sample_lights(const scene* scn, const point& pt, rng_t& rng) {
 
-
-  if(scn->lights.empty())
-    return {};
-
   auto lgt = scn->lights[next_rand1i(rng,scn->lights.size())];
   auto rne = next_rand1f(rng);
   vec2f rn = {next_rand1f(rng),next_rand1f(rng)};
@@ -289,10 +294,12 @@ point sample_lights(const scene* scn, const point& pt, rng_t& rng) {
 /// Compute the light sampling weight, which 1/pdf
 float weight_lights(const scene* scn, const point& lpt, const point& pt) {
 
-  if (!lpt.hit()) return 0;
+  if (lpt.le==zero3f) return 0;
 
-  if(lpt.ist->shp->elem_cdf.empty())
+  if(!lpt.ist) //env light
     return 4 * pif;
+
+  if (!lpt.hit()) return 0;
 
   auto d = dist(lpt.x, pt.x);
 
@@ -540,8 +547,74 @@ float weight_brdfcos(const point& pt, const vec3f& i) {
   }
 }
 
+// Evaluates emission.
+inline vec3f eval_emission(const point& pt) {
+  auto& em = pt.le;
+  auto& wo = pt.o;
+  auto& wn = pt.n;
+
+  if (pt.le==zero3f) return zero3f;
+
+  auto ke = zero3f;
+  if(pt.ist)
+    ke += (dot(wn, wo) > 0) ? em : zero3f;
+  else
+    ke += em;
+
+  return ke;
+}
+
+// Offsets a ray origin to avoid self-intersection.
+inline ray3f offset_ray(
+    const point& pt, const vec3f& w) {
+  if (dot(w, pt.n) > 0) {
+    return ray3f(
+        pt.x + pt.n * ray_eps, w, ray_eps);
+  } else {
+    return ray3f(
+        pt.x - pt.n * ray_eps, w, ray_eps);
+  }
+}
+
+// Offsets a ray origin to avoid self-intersection.
+inline ray3f offset_ray(
+    const point& pt, const point& pt2) {
+  auto ray_dist = (pt2.ist) ? dist(pt.x, pt2.x) : flt_max;
+  if (dot(pt2.x - pt.x, pt.n) > 0) {
+    return ray3f(pt.x + pt.n * ray_eps, -pt2.o,
+                 ray_eps, ray_dist - 2 * ray_eps);
+  } else {
+    return ray3f(pt.x - pt.n * ray_eps, -pt2.o,
+                 ray_eps, ray_dist - 2 * ray_eps);
+  }
+}
 
 
+// Test occlusion
+inline vec3f eval_transmission(const scene* scn, const point& pt,
+                               const point& lpt, int bounces) {
+
+  //if(false){
+  auto shadow_ray = offset_ray(pt, lpt);
+    return (intersect_ray(scn, shadow_ray, true)) ? zero3f : vec3f{1, 1, 1};
+  //}
+  //if (intersect_ray(scn, shadow_ray, true))
+    //return zero3f;
+/*
+  auto cpt = pt;
+  auto weight = vec3f{1, 1, 1};
+  for (auto bounce = 0; bounce < bounces; bounce++) {
+    auto r = offset_ray(cpt, lpt);
+    cpt = intersect(scn, r.o, r.d);
+    if (!cpt.ist) break;
+   // auto a = dot(pt.n,r.d);
+   // auto b = dot(cpt.n,-r.d);
+    weight *= cpt.kt;
+    if (weight == zero3f) break;
+  }
+  return weight;*/
+
+}
 
 /// Naive pathtracing called recurively. Hint: call reculsively with boucnes-1.
 /// In this method, use hemispherical cosine sampling and only lambert BSDF.
@@ -549,15 +622,15 @@ vec3f estimate_li_naive(
     const scene* scn, const vec3f& q, const vec3f& d, int bounces, rng_t& rng) {
 
   auto pt = intersect(scn, q, d);
-  if(!pt.hit()) return pt.le;
-  if(bounces <= 0) return pt.le;
+  if(!pt.hit()) return eval_emission(pt);
+  if(bounces <= 0) return eval_emission(pt);
 
   auto i = sample_brdfcos(pt, rng);
   auto li = estimate_li_naive(scn, pt.x,i,bounces-1,rng);
 
   auto lr = li * eval_brdfcos(pt,i) * weight_brdfcos(pt,i);
 
-  return pt.le + lr;
+  return eval_emission(pt) + lr;
 
 }
 
@@ -567,50 +640,72 @@ vec3f estimate_li_product(
     const scene* scn, const vec3f& q, const vec3f& d, int bounces, rng_t& rng) {
 
   auto pt = intersect(scn, q, d);
-  auto li = pt.le;
+  auto li = eval_emission(pt);
   vec3f w = {1,1,1};
-  auto rrprob = 1.0f/ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d))), 1.0f);
+  auto rrprob = 1.0f/ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 1.0f);
+  //auto rrprob = 1.0f/ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d),pt.rs)), 1.0f);
 
   for(auto bounce : range(bounces)) {
     if(!pt.hit()) break;
     auto i = sample_brdfcos(pt, rng);
     auto bpt = intersect(scn, pt.x, i);
     w *= eval_brdfcos(pt,i) * (rrprob*weight_brdfcos(pt,i)); // update w  //pr(pt.f)*p(i)
-    li += w * bpt.le;          // accumulate li
+    li += w * eval_emission(bpt);          // accumulate li
     pt = bpt;                  // “recurse”
   }
   return li;
 }
-
 
 /// Pathtracing with direct+indirect and russian roulette
 vec3f estimate_li_direct(
     const scene* scn, const vec3f& q, const vec3f& d, int bounces, rng_t& rng) {
 
   auto pt = intersect(scn, q, d);
-  auto li = pt.le;
+  auto li = eval_emission(pt);
+  if (!pt.hit() || scn->lights.empty()) return li;
+
   vec3f w = {1,1,1};
   for(auto bounce : range(bounces)) {
-    if(!pt.hit()) break;
+
+    //if (pt.le!=zero3f) li += w * eval_emission(pt);
 
     auto lpt = sample_lights(scn, pt, rng);
-    if(intersect(scn, pt.x, -lpt.o).hit()){
-      auto a = weight_lights(scn,lpt,pt) * (float)scn->lights.size();
-      auto inc = w * lpt.le * eval_brdfcos(pt,-lpt.o) * a;
-
-      ray3f shadow_ray = ray3f ({pt.x,-lpt.o,ray_eps, dist(pt.x, lpt.x) - 2 * ray_eps});
-      vec3f b = intersect_ray(scn,shadow_ray,true) ? zero3f : one3f;
-      li += inc * b;
+    //if(intersect(scn, pt.x, -lpt.o).hit()){
+    auto lw = weight_lights(scn,lpt, pt) * (float)scn->lights.size();
+    auto lke = eval_emission(lpt);
+    auto lbc = eval_brdfcos(pt, -lpt.o);
+    auto lld = lke * lbc * lw;
+    if (lld != zero3f) {
+      li += w * lld * eval_transmission(scn, pt, lpt, bounces);
     }
+
+   /* //auto a = weight_lights(scn,lpt,pt) * (float)scn->lights.size();
+    auto inc = w * eval_emission(lpt) * eval_brdfcos(pt,-lpt.o) * a;
+
+    //auto ray_dist = (lpt.ist) ? dist(pt.x, lpt.x) : flt_max;
+    //ray3f shadow_ray = ray3f ({pt.x,-lpt.o,ray_eps, ray_dist - 2 * ray_eps});
+    auto shadow_ray = offset_ray(pt, lpt);
+    auto b = intersect_ray(scn,shadow_ray, true) ? zero3f : one3f;
+
+    inc *= b;
+    if (inc != zero3f)
+      li += inc ;*/
+   // }
     auto i = sample_brdfcos(pt, rng);
     auto bpt = intersect(scn, pt.x, i);
 
     if(!bpt.hit()) break;
     w *= eval_brdfcos(pt,-bpt.o) * weight_brdfcos(pt,-bpt.o);
 
-    auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d))), 0.95f);
+    // continue path
+    if (w == zero3f) break;
+
+
+    auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 0.95f);
+    //auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d),pt.rs)), 0.95f);
     if(next_rand1f(rng)<rrprob) break; //russian roulette
     w *= 1 / (1 - rrprob);
+
 
     pt=bpt;
   }
@@ -620,9 +715,9 @@ vec3f estimate_li_direct(
 /// Pathtracing with direct+indirect, MIS and russian roulette
 vec3f estimate_li_mis(
     const scene* scn, const vec3f& q, const vec3f& d, int bounces, rng_t& rng) {
-  //TODO estimate_li_mis
+
   auto pt = intersect(scn, q, d);
-  auto li = pt.le;
+  auto li = eval_emission(pt);
   vec3f w = {1,1,1};
   for(auto bounce : range(bounces)) {
     if(!pt.hit()) break;
@@ -630,23 +725,27 @@ vec3f estimate_li_mis(
     auto lpt = sample_lights(scn, pt, rng);
     if(intersect(scn, pt.x, -lpt.o).hit()){
       auto lw = weight_lights(scn,lpt,pt) * (float)scn->lights.size();
-      auto inc = w * lpt.le * eval_brdfcos(pt,-lpt.o) * lw;
+      auto inc = w * eval_emission(lpt) * eval_brdfcos(pt,-lpt.o) * lw;
 
-      ray3f shadow_ray = ray3f ({pt.x,-lpt.o,ray_eps, dist(pt.x, lpt.x) - 2 * ray_eps});
-      vec3f b = intersect_ray(scn,shadow_ray,true) ? zero3f : one3f;
+      //auto ray_dist = (lpt.ist) ? dist(pt.x, lpt.x) : flt_max;
+      //ray3f shadow_ray = ray3f ({pt.x,-lpt.o,ray_eps, ray_dist - 2 * ray_eps});
+      auto shadow_ray = offset_ray(pt, lpt);
+      auto b = intersect_ray(scn,shadow_ray, true) ? zero3f : one3f;
+
       li += inc * b * _impl_trace::weight_mis(lw, weight_brdfcos(pt, -lpt.o));
     }
     auto i = sample_brdfcos(pt, rng);
     auto bpt = intersect(scn, pt.x, i);
     auto bw = weight_brdfcos(pt, -bpt.o);
 
-    li += w * bpt.le * eval_brdfcos(pt,-bpt.o) * bw *
-        _impl_trace::weight_mis(bw, weight_lights(scn, bpt, pt));
-
     if(!bpt.hit()) break;
+    li += w * eval_emission(bpt) * eval_brdfcos(pt,-bpt.o) * bw *
+          _impl_trace::weight_mis(bw, weight_lights(scn, bpt, pt));
+
     w *= eval_brdfcos(pt,-bpt.o) * weight_brdfcos(pt,-bpt.o);
 
-    auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d))), 0.95f);
+    auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 1.0f);
+    //auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + _impl_trace::eval_fresnel_schlick(pt.ks,dot(pt.n,d),pt.rs)), 1.0f);
     if(next_rand1f(rng)<rrprob) break; //russian roulette
     w *= 1 / (1 - rrprob);
 

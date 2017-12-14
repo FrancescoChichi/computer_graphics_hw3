@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/rc/Desktop/computer_graphics_hw3/src/json.hpp
+/Users/s1r/Desktop/computer_graphics_hw3/src/json.hpp
 algorithm
 -
 array
@@ -60,21 +60,21 @@ utility
 vector
 -
 
-/Users/rc/Desktop/computer_graphics_hw3/src/pathtrace.cpp
+/Users/s1r/Desktop/computer_graphics_hw3/src/pathtrace.cpp
 thread
 -
 yocto_gl.h
-/Users/rc/Desktop/computer_graphics_hw3/src/yocto_gl.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/yocto_gl.h
 printData.h
-/Users/rc/Desktop/computer_graphics_hw3/src/printData.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/printData.h
 
-/Users/rc/Desktop/computer_graphics_hw3/src/printData.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/printData.h
 yocto_gl.h
-/Users/rc/Desktop/computer_graphics_hw3/src/yocto_gl.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/yocto_gl.h
 
-/Users/rc/Desktop/computer_graphics_hw3/src/stb_image.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image.h
 stb_image.h
-/Users/rc/Desktop/computer_graphics_hw3/src/stb_image.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image.h
 stdio.h
 -
 stdarg.h
@@ -102,9 +102,9 @@ intrin.h
 arm_neon.h
 -
 
-/Users/rc/Desktop/computer_graphics_hw3/src/stb_image_resize.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image_resize.h
 stb_image_resize.h
-/Users/rc/Desktop/computer_graphics_hw3/src/stb_image_resize.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image_resize.h
 stdint.h
 -
 assert.h
@@ -116,7 +116,7 @@ math.h
 stdlib.h
 -
 
-/Users/rc/Desktop/computer_graphics_hw3/src/stb_image_write.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image_write.h
 stdio.h
 -
 stdarg.h
@@ -130,7 +130,7 @@ math.h
 assert.h
 -
 
-/Users/rc/Desktop/computer_graphics_hw3/src/tinyexr.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/tinyexr.h
 stddef.h
 -
 stdint.h
@@ -156,9 +156,9 @@ cstdint
 omp.h
 -
 zlib.h
-/Users/rc/Desktop/computer_graphics_hw3/src/zlib.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/zlib.h
 zfp.h
-/Users/rc/Desktop/computer_graphics_hw3/src/zfp.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/zfp.h
 time.h
 -
 stdio.h
@@ -176,7 +176,7 @@ utime.h
 utime.h
 -
 
-/Users/rc/Desktop/computer_graphics_hw3/src/yocto_gl.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/yocto_gl.h
 algorithm
 -
 array
@@ -224,15 +224,15 @@ unordered_set
 vector
 -
 stb_image.h
-/Users/rc/Desktop/computer_graphics_hw3/src/stb_image.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image.h
 stb_image_resize.h
-/Users/rc/Desktop/computer_graphics_hw3/src/stb_image_resize.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image_resize.h
 stb_image_write.h
-/Users/rc/Desktop/computer_graphics_hw3/src/stb_image_write.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image_write.h
 tinyexr.h
-/Users/rc/Desktop/computer_graphics_hw3/src/tinyexr.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/tinyexr.h
 json.hpp
-/Users/rc/Desktop/computer_graphics_hw3/src/json.hpp
+/Users/s1r/Desktop/computer_graphics_hw3/src/json.hpp
 OpenGL/gl3.h
 -
 GL/glew.h
@@ -240,21 +240,21 @@ GL/glew.h
 GLFW/glfw3.h
 -
 imgui/imgui.h
-/Users/rc/Desktop/computer_graphics_hw3/src/imgui/imgui.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/imgui/imgui.h
 imgui/imgui_impl_glfw_gl3.h
-/Users/rc/Desktop/computer_graphics_hw3/src/imgui/imgui_impl_glfw_gl3.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/imgui/imgui_impl_glfw_gl3.h
 stb_image.h
-/Users/rc/Desktop/computer_graphics_hw3/src/stb_image.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image.h
 stb_image_write.h
-/Users/rc/Desktop/computer_graphics_hw3/src/stb_image_write.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image_write.h
 stb_image_resize.h
-/Users/rc/Desktop/computer_graphics_hw3/src/stb_image_resize.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/stb_image_resize.h
 tinyexr.h
-/Users/rc/Desktop/computer_graphics_hw3/src/tinyexr.h
+/Users/s1r/Desktop/computer_graphics_hw3/src/tinyexr.h
 imgui/imgui.cpp
-/Users/rc/Desktop/computer_graphics_hw3/src/imgui/imgui.cpp
+/Users/s1r/Desktop/computer_graphics_hw3/src/imgui/imgui.cpp
 imgui/imgui_draw.cpp
-/Users/rc/Desktop/computer_graphics_hw3/src/imgui/imgui_draw.cpp
+/Users/s1r/Desktop/computer_graphics_hw3/src/imgui/imgui_draw.cpp
 imgui/imgui_impl_glfw_gl3.cpp
-/Users/rc/Desktop/computer_graphics_hw3/src/imgui/imgui_impl_glfw_gl3.cpp
+/Users/s1r/Desktop/computer_graphics_hw3/src/imgui/imgui_impl_glfw_gl3.cpp
 

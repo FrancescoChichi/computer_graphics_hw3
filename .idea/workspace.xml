@@ -12,10 +12,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24ef128b-3e9e-4408-98b1-0a04637756dc" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/pathtrace" afterPath="$PROJECT_DIR$/bin/pathtrace" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outd/matball_plastic03_envlight_direct.png" afterPath="$PROJECT_DIR$/outd/matball_plastic03_envlight_direct.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outd/matball_gold02_arealight_mis.png" afterPath="$PROJECT_DIR$/outd/matball_gold02_arealight_mis.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outd/matball_plastic03_arealight_direct.png" afterPath="$PROJECT_DIR$/outd/matball_plastic03_arealight_direct.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outd/matball_plastic03_arealight_mis.png" afterPath="$PROJECT_DIR$/outd/matball_plastic03_arealight_mis.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outd/matball_plastic03_envlight_mis.png" afterPath="$PROJECT_DIR$/outd/matball_plastic03_envlight_mis.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outd/simple_envlight_mis.png" afterPath="$PROJECT_DIR$/outd/simple_envlight_mis.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pathtrace.cpp" afterPath="$PROJECT_DIR$/src/pathtrace.cpp" />
     </list>
@@ -32,8 +36,8 @@
       <file leaf-file-name="pathtrace.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pathtrace.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="583" column="1" lean-forward="false" selection-start-line="583" selection-start-column="1" selection-end-line="583" selection-end-column="1" />
+            <state relative-caret-position="522">
+              <caret line="695" column="0" lean-forward="false" selection-start-line="695" selection-start-column="0" selection-end-line="695" selection-end-column="0" />
               <folding>
                 <element signature="e#56#77#0" expanded="true" />
                 <element signature="e#667#1336#0" expanded="false" />
@@ -48,8 +52,8 @@
       <file leaf-file-name="yocto_gl.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/yocto_gl.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3105">
-              <caret line="15639" column="21" lean-forward="false" selection-start-line="15639" selection-start-column="13" selection-end-line="15639" selection-end-column="21" />
+            <state relative-caret-position="216">
+              <caret line="15943" column="6" lean-forward="false" selection-start-line="15943" selection-start-column="6" selection-end-line="15943" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -86,9 +90,9 @@
       <find>li</find>
       <find>eval_transmission</find>
       <find>offset_ray</find>
-      <find>_li_</find>
-      <find>eval_tex</find>
       <find>eval_env</find>
+      <find>eval_tex</find>
+      <find>_li_</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -146,7 +150,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.envlight_direct">
+  <component name="RunManager" selected="Application.plastic arealict direct">
     <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
       <envs />
     </configuration>
@@ -227,12 +231,12 @@
       <workItem from="1512995684075" duration="7210000" />
       <workItem from="1513010979383" duration="4931000" />
       <workItem from="1513018964377" duration="17995000" />
-      <workItem from="1513040584058" duration="45542000" />
+      <workItem from="1513040584058" duration="46216000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="169952000" />
+    <option name="totallyTimeSpent" value="170626000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -253,7 +257,7 @@
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28997022" sideWeight="0.5106496" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24788392" sideWeight="0.48935038" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24788392" sideWeight="0.48935038" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24892704" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31922612" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -282,7 +286,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24892704" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24892704" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26602176" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -479,16 +483,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/yocto_gl.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3105">
-          <caret line="15639" column="21" lean-forward="false" selection-start-line="15639" selection-start-column="13" selection-end-line="15639" selection-end-column="21" />
+        <state relative-caret-position="216">
+          <caret line="15943" column="6" lean-forward="false" selection-start-line="15943" selection-start-column="6" selection-end-line="15943" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pathtrace.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="583" column="1" lean-forward="false" selection-start-line="583" selection-start-column="1" selection-end-line="583" selection-end-column="1" />
+        <state relative-caret-position="522">
+          <caret line="695" column="0" lean-forward="false" selection-start-line="695" selection-start-column="0" selection-end-line="695" selection-end-column="0" />
           <folding>
             <element signature="e#56#77#0" expanded="true" />
             <element signature="e#667#1336#0" expanded="false" />

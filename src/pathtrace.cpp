@@ -581,7 +581,7 @@ inline vec3f eval_transmission(const scene* scn, const point& pt,
 
   ray3f shadow_ray = offset_ray(pt, lpt);
   return (intersect_ray(scn, shadow_ray, true)) ? zero3f : vec3f{1, 1, 1};
- 
+
 }
 
 /// Naive pathtracing called recurively. Hint: call reculsively with boucnes-1.
@@ -673,41 +673,34 @@ vec3f estimate_li_mis(
     if(!pt.hit()) break;
 
     auto lpt = sample_lights(scn, pt, rng);
-    auto lw = weight_lights(scn,lpt, pt) * (float)scn->lights.size();
-    auto lke = eval_emission(lpt);
-    auto lbc = eval_brdfcos(pt, -lpt.o);
-    auto lld = lke * lbc * lw;
-    if (lld != zero3f) {
-      li += w * lld * eval_transmission(scn, pt, lpt) *
-          _impl_trace::weight_mis(lw, weight_brdfcos(pt, -lpt.o));
-    }
+    if(intersect(scn, pt.x, -lpt.o).hit()){
+      auto lw = weight_lights(scn,lpt,pt) * (float)scn->lights.size();
+      auto inc = w * eval_emission(lpt) * eval_brdfcos(pt,-lpt.o) * lw;
 
-    auto bpt = intersect(scn, pt.x, sample_brdfcos(pt, rng));
+      auto shadow_ray = offset_ray(pt, lpt);
+      auto b = intersect_ray(scn,shadow_ray, true) ? zero3f : one3f;
+
+      li += inc * b * _impl_trace::weight_mis(lw, weight_brdfcos(pt, -lpt.o));
+    }
+    auto i = sample_brdfcos(pt, rng);
+    auto bpt = intersect(scn, pt.x, i);
     auto bw = weight_brdfcos(pt, -bpt.o);
-    auto bke = eval_emission(bpt);
-    auto bbc = eval_brdfcos(pt, -bpt.o);
-    auto bld = bke * bbc * bw;
-    if (bld != zero3f) {
-      li += w * bld * _impl_trace::weight_mis(bw, weight_lights(scn, bpt, pt));
-    }
 
-    if (bounce == bounces - 1) break;
-    if (!bpt.hit()) break;
+    if(!bpt.hit()) break;
+    li += w * eval_emission(bpt) * eval_brdfcos(pt,-bpt.o) * bw *
+          _impl_trace::weight_mis(bw, weight_lights(scn, bpt, pt));
 
     w *= eval_brdfcos(pt,-bpt.o) * weight_brdfcos(pt,-bpt.o);
-    if (w == zero3f) break;
 
-    // roussian roulette
-    if (bounce > 2) {
-      auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 0.95f);
-      if (next_rand1f(rng) < rrprob) break; //russian roulette
-      w *= 1 / (1 - rrprob);
-    }
+    auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 1.0f);
+    if(next_rand1f(rng)<rrprob) break; //russian roulette
+    w *= 1 / (1 - rrprob);
 
     pt=bpt;
   }
   return li;
 }
+
 
 image4f pathtrace(const scene* scn, int resolution, int samples,
                   const std::string& integrator, int bounces, bool parallel) {

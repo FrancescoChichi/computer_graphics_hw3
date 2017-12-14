@@ -146,33 +146,12 @@ point eval_point(const instance* ist, int eid, const vec4f& euv, const vec3f& o)
   // done
   return pt;
 
-
-
-
-
-  /*auto p = point();
-
-  p.ist=ist;
-  p.o = o;
-
-  p.x = eval_pos(ist->shp, eid, euv);
-  p.n = eval_norm(ist->shp, eid, euv);
-  //auto color = eval_color(ist->shp, eid, euv);
-  p.ks = ist->shp->mat->ks * eval_texture(ist->shp->mat->ks_txt, eval_texcoord(ist->shp, eid, euv)).xyz();
-  p.rs = ist->shp->mat->rs;
-
-
-  p.kd = ist->shp->mat->kd * eval_texture(ist->shp->mat->kd_txt, eval_texcoord(ist->shp, eid, euv)).xyz();
-
-  p.le = ist->shp->mat->ke * eval_texture(ist->shp->mat->ke_txt, eval_texcoord(ist->shp, eid, euv)).xyz();
-
-  return p;*/
 }
 
 /// Evaluate the point proerties for an environment (only o and le).
 point eval_point(const environment* env, const vec3f& o) {
   auto p = point();
-/*
+
   // maerial
   auto ke = env->ke;
   if (env->ke_txt) {
@@ -182,15 +161,10 @@ point eval_point(const environment* env, const vec3f& o) {
     auto texcoord = vec2f{phi, theta};
     ke *= eval_texture(env->ke_txt, texcoord).xyz();
   }
-*/
-  //p.le=ke;
-  p.le=env->ke;
-  p.o= o;
-  // create emission lobe
-  //if (ke != zero3f) { p.le =  ke; }
-  //if (env->ke != zero3f) { p.le =  env->ke; }
 
-  // done
+  p.le=ke;
+  p.o= o;
+
   return p;
 
 }
@@ -591,7 +565,7 @@ inline ray3f offset_ray(
     const point& pt, const point& pt2) {
   //auto ray_dist = (pt2.ist) ? dist(pt.x, pt2.x) : flt_max;
   auto ray_dist = (pt2.ist) ? dist(pt.x, pt2.x) : flt_max;
-  if (dot(pt2.x - pt.x, pt.n) > 0) {
+  if (!pt2.ist || dot(pt2.x - pt.x, pt.n) > 0) {
     return ray3f(pt.x + pt.n * ray_eps, -pt2.o,
                  ray_eps, ray_dist - 2 * ray_eps);
   } else {
@@ -605,32 +579,9 @@ inline ray3f offset_ray(
 inline vec3f eval_transmission(const scene* scn, const point& pt,
                                const point& lpt) {
 
-  //if(false){
-  //if(!lpt.ist) return one3f;
-  ray3f shadow_ray;
-  if(!lpt.ist)
-    shadow_ray = ray3f(pt.x + pt.n * ray_eps, -lpt.o, ray_eps, flt_max - 2 * ray_eps);
-  else
-    shadow_ray = offset_ray(pt, lpt);
-
+  ray3f shadow_ray = offset_ray(pt, lpt);
   return (intersect_ray(scn, shadow_ray, true)) ? zero3f : vec3f{1, 1, 1};
-  //}
-  //if (intersect_ray(scn, shadow_ray, true))
-    //return zero3f;
-/*
-  auto cpt = pt;
-  auto weight = vec3f{1, 1, 1};
-  for (auto bounce = 0; bounce < bounces; bounce++) {
-    auto r = offset_ray(cpt, lpt);
-    cpt = intersect(scn, r.o, r.d);
-    if (!cpt.ist) break;
-   // auto a = dot(pt.n,r.d);
-   // auto b = dot(cpt.n,-r.d);
-    weight *= cpt.kt;
-    if (weight == zero3f) break;
-  }
-  return weight;*/
-
+ 
 }
 
 /// Naive pathtracing called recurively. Hint: call reculsively with boucnes-1.

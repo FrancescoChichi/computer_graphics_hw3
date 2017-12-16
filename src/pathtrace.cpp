@@ -155,6 +155,7 @@ point eval_point(const environment* env, const vec3f& o) {
   // maerial
   auto ke = env->ke;
   if (env->ke_txt) {
+
     auto w = transform_direction(inverse(env->frame), -o);
     auto theta = (acos(clamp(w.y, (float)-1, (float)1)) / pif);
     auto phi = atan2(w.z, w.x) / (2 * pif);
@@ -238,12 +239,11 @@ point sample_light(const light* lgt, const point& pt, float rne, const vec2f& rn
   }
   else if (lgt->env) {
 
-    //auto a = lgt->env->ke*(lgt->env->ke_txt.txt->hdr.at(atan2(lgt->env->frame.pos().x,lgt->env->frame.pos().x)*(1/(2*pif)),acos(lgt->env->frame.pos().y)/pif)).xyz();
     auto z = -1 + 2 * rn.y;
     auto rr = sqrt(clamp(1 - z * z, (float)0, (float)1));
     auto phi = 2 * pif * rn.x;
     auto wo = vec3f{cos(phi) * rr, z, sin(phi) * rr};
-    auto lpt = eval_point(lgt->env, wo);//wo->a
+    auto lpt = eval_point(lgt->env, wo);
     return lpt;
   } else {
     assert(false);
@@ -490,15 +490,13 @@ float weight_triangle_brdfcos(const point& pt, const vec3f& i) {
       ndh = dot(pt.n, h);
 
   // diffuse term (hemipherical cosine probability)
-  if (ndo > 0 && ndi > 0) { pdf += kdw * ndi / pif; }
+  pdf += kdw * ndi / pif;
 
-  // specular term (GGX)
-  if (ndo > 0 && ndi > 0 && ndh > 0) {
-    // probability proportional to d adjusted by wh projection
-    auto d = pdf_ggx(pt.rs, ndh);
-    auto hdo = dot(pt.o, h);
-    pdf += ksw * d / (4 * hdo);
-  }
+  // probability proportional to d adjusted by wh projection
+  auto d = pdf_ggx(pt.rs, ndh);
+  auto hdo = dot(pt.o, h);
+  pdf += ksw * d / (4 * hdo);
+
 
   return 1 / pdf;
 }
@@ -565,10 +563,15 @@ inline ray3f offset_ray(
     const point& pt, const point& pt2) {
   //auto ray_dist = (pt2.ist) ? dist(pt.x, pt2.x) : flt_max;
   auto ray_dist = (pt2.ist) ? dist(pt.x, pt2.x) : flt_max;
-  if (!pt2.ist || dot(pt2.x - pt.x, pt.n) > 0) {
+  if (dot(pt2.x - pt.x, pt.n) > 0) {
     return ray3f(pt.x + pt.n * ray_eps, -pt2.o,
                  ray_eps, ray_dist - 2 * ray_eps);
   } else {
+
+    /*if (!pt2.ist)
+      return ray3f(pt.x, -pt2.o,
+                   ray_eps, ray_dist - 2 * ray_eps);
+*/
     return ray3f(pt.x - pt.n * ray_eps, -pt2.o,
                  ray_eps, ray_dist - 2 * ray_eps);
   }
@@ -579,7 +582,11 @@ inline ray3f offset_ray(
 inline vec3f eval_transmission(const scene* scn, const point& pt,
                                const point& lpt) {
 
-  ray3f shadow_ray = offset_ray(pt, lpt);
+  /*auto ray_dist = (lpt.ist) ? dist(pt.x, lpt.x) : flt_max;
+
+  ray3f shadow_ray =  ray3f(pt.x, -lpt.o,
+                            ray_eps, ray_dist);*/
+  ray3f shadow_ray =  offset_ray(pt, lpt);
   return (intersect_ray(scn, shadow_ray, true)) ? zero3f : vec3f{1, 1, 1};
 
 }
@@ -645,17 +652,26 @@ vec3f estimate_li_direct(
     if (bounce == bounces - 1) break;
 
 
+    auto i = sample_brdfcos(pt, rng);
+    auto r = offset_ray(pt, i);
+
+    auto bpt = intersect(scn, r.o, r.d);
+
+
+    auto wi = sample_brdfcos(pt, rng);
+    w *= eval_brdfcos(pt,-bpt.o) * weight_brdfcos(pt,-bpt.o);
+    //w *= eval_brdfcos(pt, wi) * weight_brdfcos(pt, wi);
+    if (w == zero3f) break;
+
+
     if (bounce > 2) {
       auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 0.95f);
       if (next_rand1f(rng) < rrprob) break; //russian roulette
       w *= 1 / (1 - rrprob);
     }
 
-    auto wi = sample_brdfcos(pt, rng);
-    w *= eval_brdfcos(pt, wi) * weight_brdfcos(pt, wi);
-    if (w == zero3f) break;
-
-    pt = intersect(scn, offset_ray(pt, wi).o, offset_ray(pt, wi).d);
+    //auto r = offset_ray(pt, wi);
+    pt = intersect(scn, r.o, r.d);
     if (!pt.hit()) break;
 
   }
@@ -668,35 +684,48 @@ vec3f estimate_li_mis(
 
   auto pt = intersect(scn, q, d);
   auto li = eval_emission(pt);
+  if (!pt.hit() || scn->lights.empty()) return li;
+
   vec3f w = {1,1,1};
   for(auto bounce : range(bounces)) {
-    if(!pt.hit()) break;
 
     auto lpt = sample_lights(scn, pt, rng);
-    if(intersect(scn, pt.x, -lpt.o).hit()){
-      auto lw = weight_lights(scn,lpt,pt) * (float)scn->lights.size();
-      auto inc = w * eval_emission(lpt) * eval_brdfcos(pt,-lpt.o) * lw;
-
-      auto shadow_ray = offset_ray(pt, lpt);
-      auto b = intersect_ray(scn,shadow_ray, true) ? zero3f : one3f;
-
-      li += inc * b * _impl_trace::weight_mis(lw, weight_brdfcos(pt, -lpt.o));
+    auto lw = weight_lights(scn,lpt, pt) * (float)scn->lights.size();
+    auto lke = eval_emission(lpt);
+    auto lbc = eval_brdfcos(pt, -lpt.o);
+    auto lld = lke * lbc * lw;
+    if (lld != zero3f) {
+      li += w * lld * eval_transmission(scn, pt, lpt) * _impl_trace::weight_mis(lw, weight_brdfcos(pt, -lpt.o));
     }
+
     auto i = sample_brdfcos(pt, rng);
-    auto bpt = intersect(scn, pt.x, i);
+    auto r = offset_ray(pt, i);
+    auto bpt = intersect(scn, r.o, r.d);
     auto bw = weight_brdfcos(pt, -bpt.o);
-
+    auto bke = eval_emission(bpt);
+    auto bbc = eval_brdfcos(pt, -bpt.o);
+    auto bld = bke * bbc * bw;
+    if (bld != zero3f) {
+      li += w * bld * _impl_trace::weight_mis(bw, weight_lights(scn, bpt, pt));
+    }
     if(!bpt.hit()) break;
-    li += w * eval_emission(bpt) * eval_brdfcos(pt,-bpt.o) * bw *
-          _impl_trace::weight_mis(bw, weight_lights(scn, bpt, pt));
 
+    // skip recursion if path ends
+    if (bounce == bounces - 1) break;
+    // continue path
     w *= eval_brdfcos(pt,-bpt.o) * weight_brdfcos(pt,-bpt.o);
+    if (w == zero3f) break;
 
-    auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 1.0f);
-    if(next_rand1f(rng)<rrprob) break; //russian roulette
-    w *= 1 / (1 - rrprob);
+    // roussian roulette
+    if (bounce > 2) {
+      auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 0.95f);
+      if (next_rand1f(rng) < rrprob) break;
+      w *= 1 / (1 - rrprob);
+    }
 
-    pt=bpt;
+    // continue path
+    pt = bpt;
+
   }
   return li;
 }

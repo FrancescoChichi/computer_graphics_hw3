@@ -12,30 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24ef128b-3e9e-4408-98b1-0a04637756dc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/matball_gold02_arealight_mis.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/matball_plastic03_arealight_direct.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/matball_plastic03_envlight_direct.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/matball_silver01_arealight_mis.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/matball_silver01_envlight_direct.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/outd/cornell_box_direct.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/outd/cornell_box_mis.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/outd/cornell_box_naive.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/outd/cornell_box_product.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/outd/simple_pointlight_direct.png" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/matball_gold02_envlight_mis.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/outd/matball_plastic03_envlight_direct.png" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/pathtrace" afterPath="$PROJECT_DIR$/bin/pathtrace" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/cornell_box_direct.png" afterPath="$PROJECT_DIR$/out/cornell_box_direct.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/cornell_box_naive.png" afterPath="$PROJECT_DIR$/out/cornell_box_naive.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/cornell_box_product.png" afterPath="$PROJECT_DIR$/out/cornell_box_product.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/matball_gold02_envlight_direct.png" afterPath="$PROJECT_DIR$/out/matball_gold02_envlight_direct.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/simple_arealight_mis.png" afterPath="$PROJECT_DIR$/out/simple_arealight_mis.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/simple_envlight_mis.png" afterPath="$PROJECT_DIR$/out/simple_envlight_mis.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/simple_pointlight_direct.png" afterPath="$PROJECT_DIR$/out/simple_pointlight_direct.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rund.sh" afterPath="$PROJECT_DIR$/rund.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pathtrace.cpp" afterPath="$PROJECT_DIR$/src/pathtrace.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" afterPath="$PROJECT_DIR$/build/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outd/cornell_box_direct.png" afterPath="$PROJECT_DIR$/outd/cornell_box_direct.png" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,8 +29,8 @@
       <file leaf-file-name="pathtrace.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pathtrace.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="659" column="8" lean-forward="false" selection-start-line="659" selection-start-column="8" selection-end-line="659" selection-end-column="8" />
+            <state relative-caret-position="-599">
+              <caret line="616" column="6" lean-forward="false" selection-start-line="616" selection-start-column="6" selection-end-line="616" selection-end-column="6" />
               <folding>
                 <element signature="e#56#77#0" expanded="true" />
                 <element signature="e#7310#7758#0" expanded="false" />
@@ -287,12 +266,12 @@
       <workItem from="1512995684075" duration="7210000" />
       <workItem from="1513010979383" duration="4931000" />
       <workItem from="1513018964377" duration="17995000" />
-      <workItem from="1513040584058" duration="70033000" />
+      <workItem from="1513040584058" duration="70208000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="194443000" />
+    <option name="totallyTimeSpent" value="194618000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -556,8 +535,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pathtrace.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="659" column="8" lean-forward="false" selection-start-line="659" selection-start-column="8" selection-end-line="659" selection-end-column="8" />
+        <state relative-caret-position="-599">
+          <caret line="616" column="6" lean-forward="false" selection-start-line="616" selection-start-column="6" selection-end-line="616" selection-end-column="6" />
           <folding>
             <element signature="e#56#77#0" expanded="true" />
             <element signature="e#7310#7758#0" expanded="false" />

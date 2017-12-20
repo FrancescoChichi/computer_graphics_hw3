@@ -25,7 +25,7 @@
 ./bin/pathtrace -r 360 -s 16 -i mis -p -o outd/matball_plastic03_envlight_mis.png in/matball_plastic03_envlight/matball_plastic03_envlight.obj
 
 ./bin/pathtrace -r 360 -s 16 -i direct -p -o outd/matball_gold02_envlight_direct.png in/matball_gold02_envlight/matball_gold02_envlight.obj
-./bin/pathtrace -r 360 -s 16 -i mis -p -o outd/matball_gold02_envlight_mis.png in/matball_gold02_envlight/matball_gold02_envlight.obj
+./bin/pathtrace -r 360 -s 16 -i mis -p -o outd/matball_gold02_envlight_mis2.png in/matball_gold02_envlight/matball_gold02_envlight.obj
 
 ./bin/pathtrace -r 360 -s 16 -i direct -p -o outd/matball_silver01_envlight_direct.png in/matball_silver01_envlight/matball_silver01_envlight.obj
 ./bin/pathtrace -r 360 -s 16 -i mis -p -o outd/matball_silver01_envlight_mis.png in/matball_silver01_envlight/matball_silver01_envlight.obj

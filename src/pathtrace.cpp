@@ -18,7 +18,6 @@ struct point {
   vec3f o = zero3f; //outgoing direction
   vec3f kd = zero3f;//diffuse
   vec3f ks = zero3f;//specular
-  vec3f kt = zero3f;//specular
   float rs = 0.5;   //specular roughness
 
   bool hit() const { return (bool)ist; }
@@ -34,7 +33,7 @@ ray3f sample_camera(const camera* cam, int i, int j, int res, rng_t& rng) {
   int height = res;
   int width = (int)round(res*cam->aspect);
 
-  auto u = (i+next_rand1f(rng))/width;
+  auto u = (i-next_rand1f(rng))/width;
   auto v = 1 - (j+next_rand1f(rng))/height;
 
   float h = 2*tan(cam->yfov/2);
@@ -98,15 +97,13 @@ point eval_point(const instance* ist, int eid, const vec4f& euv, const vec3f& o)
   auto ke = mat->ke * kx_scale.xyz();
 
   // sample reflectance
-  auto kd = zero4f, ks = zero4f, kt = zero4f;
+  auto kd = zero4f, ks = zero4f;
   switch (mat->mtype) {
     case material_type::specular_roughness: {
       kd = vec4f{mat->kd, mat->op} * kx_scale *
            eval_texture(mat->kd_txt, texcoord);
       ks = vec4f{mat->ks, mat->rs} * vec4f{kx_scale.xyz(), 1} *
            eval_texture(mat->ks_txt, texcoord);
-      kt = vec4f{mat->kt, mat->rs} * vec4f{kx_scale.xyz(), 1} *
-           eval_texture(mat->kt_txt, texcoord);
     } break;
     case material_type::metallic_roughness: {
       auto kb = vec4f{mat->kd, mat->op} * kx_scale *
@@ -140,8 +137,6 @@ point eval_point(const instance* ist, int eid, const vec4f& euv, const vec3f& o)
   pt.ks =
       (ks.xyz() != zero3f && ks.w < 0.9999f) ? ks.xyz() * kd.w : zero3f;
   pt.rs = (ks.xyz() != zero3f && ks.w < 0.9999f) ? ks.w * ks.w : 0;
-  pt.kt = {1 - kd.w, 1 - kd.w, 1 - kd.w};
-  if (kt.xyz() != zero3f) pt.kt *= kt.xyz();
 
   // done
   return pt;
@@ -210,13 +205,12 @@ void init_lights(scene* scn) {
     scn->lights.push_back(lgt);
   }
 
-  for (auto env : scn->environments) {
+/*  for (auto env : scn->environments) {
     if (env->ke == zero3f) continue;
     auto lgt = new light();
     lgt->env = env;
     scn->lights.push_back(lgt);
-  }
-  std::cerr<<"lights: "<<scn->lights.size()<<std::endl;
+  }*/
 
 }
 
@@ -237,7 +231,7 @@ point sample_light(const light* lgt, const point& pt, float rne, const vec2f& rn
     lpt.o = normalize(pt.x - lpt.x);
     return lpt;
   }
-  else if (lgt->env) {
+ /* else if (lgt->env) {
 
     auto z = -1 + 2 * rn.y;
     auto rr = sqrt(clamp(1 - z * z, (float)0, (float)1));
@@ -245,10 +239,8 @@ point sample_light(const light* lgt, const point& pt, float rne, const vec2f& rn
     auto wo = vec3f{cos(phi) * rr, z, sin(phi) * rr};
     auto lpt = eval_point(lgt->env, wo);
     return lpt;
-  } else {
-    assert(false);
-    return {};
-  }
+  }*/
+  return {};
 }
 
 /// Pick one light at random and sample it with area sampling.
@@ -264,17 +256,12 @@ point sample_lights(const scene* scn, const point& pt, rng_t& rng) {
   vec2f rn = {next_rand1f(rng),next_rand1f(rng)};
 
   return sample_light(lgt,pt,rne,rn);
-
-
 }
 
 /// Compute the light sampling weight, which 1/pdf
 float weight_lights(const scene* scn, const point& lpt, const point& pt) {
 
   if (lpt.le==zero3f) return 0;
-
-  if(!lpt.ist) //env light
-    return 4 * pif;
 
   if(!lpt.hit()) return 0;
 
@@ -291,15 +278,16 @@ float weight_lights(const scene* scn, const point& lpt, const point& pt) {
 }
 
 // Evaluates the GGX distribution and geometric term
-inline float eval_ggx(float rs, float ndh, float ndi, float ndo) {
+inline float eval_ggx(float rs, float ndh, float ndi, float ndo, float hdo, float hdi) {
   // evaluate GGX
   auto alpha2 = rs * rs;
   auto di = (ndh * ndh) * (alpha2 - 1) + 1;
   auto d = alpha2 / (pif * di * di);
 
-  auto lambda_o = (-1 + sqrt(1 + alpha2 * (1 - ndo * ndo) / (ndo * ndo))) / 2;
-  auto lambda_i = (-1 + sqrt(1 + alpha2 * (1 - ndi * ndi) / (ndi * ndi))) / 2;
-  auto g = 1 / (1 + lambda_o + lambda_i);
+  auto o = (2*ndh*ndo)/hdo;
+  auto i = (2*ndh*ndi)/hdi;
+  auto g = ygl::min(o,i);
+  g = ygl::min(1.0f,g);
 
 
   return d * g;
@@ -332,13 +320,11 @@ inline vec3f sample_ggx(float rs, const vec2f& rn) {
 vec3f eval_triangle_brdfcos(const point& pt, const vec3f& i) {///OK
   auto brdfcos = zero3f;
 
-  const auto& o = pt.o;
-  const auto& n = pt.n;
-  auto h = normalize(o + i);
+  auto h = normalize(pt.o + i);
 
   // compute dot products
-  auto ndo = dot(n, o), ndi = dot(n, i),
-      ndh = clamp(dot(h, n), (float)-1, (float)1);
+  auto ndo = dot(pt.n, pt.o), ndi = dot(pt.n, i), hdi = dot(h,i), hdo= dot(h,pt.o),
+      ndh = clamp(dot(h, pt.n), -1.0f, 1.0f);
 
   // diffuse term
   if (ndi > 0 && ndo > 0) { brdfcos += pt.kd * ndi / pif; }
@@ -346,9 +332,9 @@ vec3f eval_triangle_brdfcos(const point& pt, const vec3f& i) {///OK
   // specular term
   if (ndi > 0 && ndo > 0 && ndh > 0) {
     // microfacet term
-    auto dg = eval_ggx(pt.rs, ndh, ndi, ndo);
+    auto dg = eval_ggx(pt.rs, ndh, ndi, ndo, hdo, hdi);
 
-    auto odh = clamp(dot(o, h), 0.0f, 1.0f);
+    auto odh = clamp(dot(pt.o, h), 0.0f, 1.0f);
     auto ks = _impl_trace::eval_fresnel_schlick(pt.ks, odh, pt.rs);
 
     // sum up
@@ -361,13 +347,11 @@ vec3f eval_triangle_brdfcos(const point& pt, const vec3f& i) {///OK
 
 /// Evaluate the BSDF*cosine for a line set. Left as example.
 vec3f eval_line_brdfcos(const point& pt, const vec3f& i) {
-  const auto& o = pt.o;
-  const auto& n = pt.n;
 
   auto brdfcos = vec3f{0, 0, 0};
 
-  auto h = normalize(o + i);
-  auto ndo = dot(n, o), ndi = dot(n, i), ndh = dot(h, n);
+  auto h = normalize(pt.o + i);
+  auto ndo = dot(pt.n, pt.o), ndi = dot(pt.n, i), ndh = dot(h, pt.n);
 
   auto so = sqrt(clamp(1 - ndo * ndo, 0.0f, 1.0f)),
       si = sqrt(clamp(1 - ndi * ndi, 0.0f, 1.0f)),
@@ -390,9 +374,8 @@ vec3f eval_line_brdfcos(const point& pt, const vec3f& i) {
 
 /// Evaluate the BSDF*cosine for a point set. Left as example.
 vec3f eval_point_brdfcos(const point& pt, const vec3f& i) {
-  const auto& o = pt.o;
 
-  auto ido = dot(o, i);
+  auto ido = dot(pt.o, i);
   return (pt.kd + pt.ks) * ((2 * ido + 1) / (2 * pif));
 }
 
@@ -424,9 +407,6 @@ float weight_spherical_dir() { return 1 / (4 * pif); }
 /// Evaluate the BSDF*cosine as discussed in the slides
 vec3f sample_triangle_brdfcos(const point& pt, rng_t& rng) {
 
-  auto& wn = pt.n;
-  auto& wo = pt.o;
-
   // skip if no component
   if (!pt.hit()) return zero3f;
 
@@ -440,7 +420,7 @@ vec3f sample_triangle_brdfcos(const point& pt, rng_t& rng) {
   vec2f rn = {next_rand1f(rng),next_rand1f(rng)};
 
   // compute cosine
-  auto ndo = dot(wn, wo);
+  auto ndo = dot(pt.n, pt.o);
 
   // check to make sure we are above the surface
   if (ndo <= 0) return zero3f;
@@ -460,7 +440,7 @@ vec3f sample_triangle_brdfcos(const point& pt, rng_t& rng) {
     auto wh_local = sample_ggx(pt.rs, rn);
     auto wh = transform_direction(make_frame3_fromz(pt.x, pt.n), wh_local);
     // compute wi
-    return normalize(wh * 2.0f * dot(wo, wh) - wo);
+    return normalize(wh * 2.0f * dot(pt.o, wh) - pt.o);
   }
 
 
@@ -531,64 +511,33 @@ float weight_brdfcos(const point& pt, const vec3f& i) {
 
 // Evaluates emission.
 inline vec3f eval_emission(const point& pt) {
-  auto& em = pt.le;
-  auto& wo = pt.o;
-  auto& wn = pt.n;
+
 
   if (pt.le==zero3f) return zero3f;
 
   auto ke = zero3f;
   if(pt.ist && pt.ist->shp->points.empty())
-    ke += (dot(wn, wo) > 0) ? em : zero3f;
+    ke += (dot(pt.n, pt.o) > 0) ? pt.le : zero3f;
   else
-    ke += em;
+    ke += pt.le;
 
   return ke;
 }
 
-// Offsets a ray origin to avoid self-intersection.
-inline ray3f offset_ray(
-    const point& pt, const vec3f& w) {
-  if (dot(w, pt.n) > 0) {
-    return ray3f(
-        pt.x + pt.n * ray_eps, w, ray_eps);
-  } else {
-    return ray3f(
-        pt.x - pt.n * ray_eps, w, ray_eps);
-  }
-}
 
-// Offsets a ray origin to avoid self-intersection.
-inline ray3f offset_ray(
+inline ray3f compute_ray(
     const point& pt, const point& pt2) {
-  //auto ray_dist = (pt2.ist) ? dist(pt.x, pt2.x) : flt_max;
   auto ray_dist = (pt2.ist) ? dist(pt.x, pt2.x) : flt_max;
-  if (dot(pt2.x - pt.x, pt.n) > 0) {
-    return ray3f(pt.x + pt.n * ray_eps, -pt2.o,
-                 ray_eps, ray_dist - 2 * ray_eps);
-  } else {
-
-    /*if (!pt2.ist)
-      return ray3f(pt.x, -pt2.o,
-                   ray_eps, ray_dist - 2 * ray_eps);
-*/
-    return ray3f(pt.x - pt.n * ray_eps, -pt2.o,
-                 ray_eps, ray_dist - 2 * ray_eps);
-  }
+  return {pt.x, -pt2.o,
+               ray_eps, ray_dist - 2 * ray_eps};
 }
-
 
 // Test occlusion
 inline vec3f eval_transmission(const scene* scn, const point& pt,
                                const point& lpt) {
 
-  /*auto ray_dist = (lpt.ist) ? dist(pt.x, lpt.x) : flt_max;
-
-  ray3f shadow_ray =  ray3f(pt.x, -lpt.o,
-                            ray_eps, ray_dist);*/
-  ray3f shadow_ray =  offset_ray(pt, lpt);
+  ray3f shadow_ray =  compute_ray(pt, lpt);
   return (intersect_ray(scn, shadow_ray, true)) ? zero3f : vec3f{1, 1, 1};
-
 }
 
 /// Naive pathtracing called recurively. Hint: call reculsively with boucnes-1.
@@ -606,7 +555,6 @@ vec3f estimate_li_naive(
   auto lr = li * eval_brdfcos(pt,i) * weight_brdfcos(pt,i);
 
   return eval_emission(pt) + lr;
-
 }
 
 /// Produce formulation of pathtracing that matches exactly eh above.
@@ -622,7 +570,7 @@ vec3f estimate_li_product(
     if(!pt.hit()) break;
     auto i = sample_brdfcos(pt, rng);
     auto bpt = intersect(scn, pt.x, i);
-    w *= eval_brdfcos(pt,i) * (weight_brdfcos(pt,i)); // update w  //pr(pt.f)*p(i)
+    w *= eval_brdfcos(pt,i) * weight_brdfcos(pt,i); // update w  //pr(pt.f)*p(i)
     li += w * eval_emission(bpt);          // accumulate li
     pt = bpt;                  // “recurse”
   }
@@ -635,48 +583,45 @@ vec3f estimate_li_direct(
 
   auto pt = intersect(scn, q, d);
   auto li = eval_emission(pt);
-  if (!pt.hit() || scn->lights.empty()) return li;
+  if (!pt.hit() ) return li;
 
   vec3f w = {1,1,1};
   for(auto bounce : range(bounces)) {
 
-    auto lpt = sample_lights(scn, pt, rng);
-    auto lw = weight_lights(scn,lpt, pt) * (float)scn->lights.size();
-    auto lke = eval_emission(lpt);
-    auto lbc = eval_brdfcos(pt, -lpt.o);
-    auto lld = lke * lbc * lw;
-    if (lld != zero3f) {
-      li += w * lld * eval_transmission(scn, pt, lpt);
+    if(!scn->lights.empty()){
+      auto lpt = sample_lights(scn, pt, rng);
+      auto lw = weight_lights(scn,lpt, pt) * (float)scn->lights.size();
+      auto lke = eval_emission(lpt);
+      auto lbc = eval_brdfcos(pt, -lpt.o);
+      auto lld = lke * lbc * lw;
+      if (lld != zero3f) {
+        li += w * lld * eval_transmission(scn, pt, lpt);
+      }
     }
 
-    if (bounce == bounces - 1) break;
-
-
-    auto i = sample_brdfcos(pt, rng);
-    auto r = offset_ray(pt, i);
-
-    auto bpt = intersect(scn, r.o, r.d);
-
+   if (bounce == bounces - 1) break;
 
     auto wi = sample_brdfcos(pt, rng);
-    w *= eval_brdfcos(pt,-bpt.o) * weight_brdfcos(pt,-bpt.o);
-    //w *= eval_brdfcos(pt, wi) * weight_brdfcos(pt, wi);
+    w *= eval_brdfcos(pt, wi) * weight_brdfcos(pt, wi);
     if (w == zero3f) break;
 
-
-    if (bounce > 2) {
-      auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 0.95f);
+    if(bounces>2){
+      auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks), 0.95f);
       if (next_rand1f(rng) < rrprob) break; //russian roulette
       w *= 1 / (1 - rrprob);
     }
 
-    //auto r = offset_ray(pt, wi);
+    auto r = ray3f( pt.x , wi, ray_eps);
     pt = intersect(scn, r.o, r.d);
-    if (!pt.hit()) break;
+    if (!pt.hit()) {
+      li+=w*pt.le;
+      break;
+    }
 
   }
   return li;
 }
+
 
 /// Pathtracing with direct+indirect, MIS and russian roulette
 vec3f estimate_li_mis(
@@ -684,22 +629,24 @@ vec3f estimate_li_mis(
 
   auto pt = intersect(scn, q, d);
   auto li = eval_emission(pt);
-  if (!pt.hit() || scn->lights.empty()) return li;
+  if (!pt.hit()) return li;
 
   vec3f w = {1,1,1};
   for(auto bounce : range(bounces)) {
 
-    auto lpt = sample_lights(scn, pt, rng);
-    auto lw = weight_lights(scn,lpt, pt) * (float)scn->lights.size();
-    auto lke = eval_emission(lpt);
-    auto lbc = eval_brdfcos(pt, -lpt.o);
-    auto lld = lke * lbc * lw;
-    if (lld != zero3f) {
-      li += w * lld * eval_transmission(scn, pt, lpt) * _impl_trace::weight_mis(lw, weight_brdfcos(pt, -lpt.o));
-    }
+    if(!scn->lights.empty()) {
 
+      auto lpt = sample_lights(scn, pt, rng);
+      auto lw = weight_lights(scn, lpt, pt) * (float) scn->lights.size();
+      auto lke = eval_emission(lpt);
+      auto lbc = eval_brdfcos(pt, -lpt.o);
+      auto lld = lke * lbc * lw;
+      if (lld != zero3f) {
+        li += w * lld * eval_transmission(scn, pt, lpt) * _impl_trace::weight_mis(lw, weight_brdfcos(pt, -lpt.o));
+      }
+    }
     auto i = sample_brdfcos(pt, rng);
-    auto r = offset_ray(pt, i);
+    auto r = ray3f(pt.x, i, ray_eps);
     auto bpt = intersect(scn, r.o, r.d);
     auto bw = weight_brdfcos(pt, -bpt.o);
     auto bke = eval_emission(bpt);
@@ -708,17 +655,20 @@ vec3f estimate_li_mis(
     if (bld != zero3f) {
       li += w * bld * _impl_trace::weight_mis(bw, weight_lights(scn, bpt, pt));
     }
-    if(!bpt.hit()) break;
 
+    if (!bpt.hit()) {
+      //li+=w*pt.le;
+      break;
+    }
     // skip recursion if path ends
     if (bounce == bounces - 1) break;
     // continue path
     w *= eval_brdfcos(pt,-bpt.o) * weight_brdfcos(pt,-bpt.o);
     if (w == zero3f) break;
 
-    // roussian roulette
-    if (bounce > 2) {
-      auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks + pt.kt), 0.95f);
+    if(bounces>2) {
+      // roussian roulette
+      auto rrprob = 1.0f - ygl::min(ygl::max_element_val(pt.kd + pt.ks), 0.95f);
       if (next_rand1f(rng) < rrprob) break;
       w *= 1 / (1 - rrprob);
     }

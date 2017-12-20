@@ -1,4 +1,4 @@
-/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/s1r/Desktop/computer_graphics_hw3
+/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/francesco/Desktop/computer_graphics_hw3
 -- Configuring done
 -- Generating done
--- Build files have been written to: /Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug
+-- Build files have been written to: /Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug

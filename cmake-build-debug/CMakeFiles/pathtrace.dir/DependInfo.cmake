@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/s1r/Desktop/computer_graphics_hw3/src/pathtrace.cpp" "/Users/s1r/Desktop/computer_graphics_hw3/cmake-build-debug/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o"
+  "/Users/francesco/Desktop/computer_graphics_hw3/src/pathtrace.cpp" "/Users/francesco/Desktop/computer_graphics_hw3/cmake-build-debug/CMakeFiles/pathtrace.dir/src/pathtrace.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

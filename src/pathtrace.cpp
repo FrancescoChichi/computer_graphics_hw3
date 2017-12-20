@@ -645,6 +645,8 @@ vec3f estimate_li_mis(
         li += w * lld * eval_transmission(scn, pt, lpt) * _impl_trace::weight_mis(lw, weight_brdfcos(pt, -lpt.o));
       }
     }
+    if (bounce == bounces - 1) break;
+
     auto i = sample_brdfcos(pt, rng);
     auto r = ray3f(pt.x, i, ray_eps);
     auto bpt = intersect(scn, r.o, r.d);
@@ -656,12 +658,8 @@ vec3f estimate_li_mis(
       li += w * bld * _impl_trace::weight_mis(bw, weight_lights(scn, bpt, pt));
     }
 
-    if (!bpt.hit()) {
-      //li+=w*pt.le;
-      break;
-    }
+    if (!bpt.hit()) break;
     // skip recursion if path ends
-    if (bounce == bounces - 1) break;
     // continue path
     w *= eval_brdfcos(pt,-bpt.o) * weight_brdfcos(pt,-bpt.o);
     if (w == zero3f) break;
